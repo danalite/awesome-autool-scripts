@@ -1,0 +1,10 @@
+---
+ task: claim-exploration-rewards
+ desc: click characters to claim reward
+ 
+ configs:
+   start-time: Mon-Sun *-*-* 12:00 UTC
+
+ actions:
+  - cmd.for_each() => $index, $location:
+    - mouse.click()

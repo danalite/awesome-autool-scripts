@@ -1,0 +1,21 @@
+---
+ task: get-weather-forecast
+ desc: get weather
+
+ inputs:
+   # City (example: "New+York", "Detroit")
+   city: Detroit
+
+ actions:
+   # weather information from wttr.in
+   - web.http(GET, https://wttr.in/{{$inputs[city]}}?format=%l:+%m+%c+%C+%t+%f) => $resp
+
+   - cmd.notify({{}})
+
+
+
+
+
+
+  
+

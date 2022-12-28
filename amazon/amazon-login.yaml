@@ -1,0 +1,28 @@
+---
+task: amazon-login
+inputs:  
+  email: xiang.elec@gmail.com
+  password: $env[SAFE_AMAZON_PASSWORD]
+
+actions:
+  - web.open(https://www.amazon.com/gp/css/order-history)
+
+  # function to type in account password
+  - cmd.fn(ENTER_PASSWORD):
+      - web.find( //*[@id="ap_password"] ).type($inputs[password])
+      - web.find( //*[@id="signInSubmit"] ).click()
+
+  - web.find( //div[contains(., "Your Orders")] ) => $is_logged_in
+  - cmd.if({{ not $is_logged_in }}):
+      - web.find( //*[@id="ap_password"] ) => $is_email_filled
+      - cmd.if({{ $is_email_filled }}):
+          - cmd.call(ENTER_PASSWORD)
+      
+      # Login to amazon account
+      - cmd.if({{ not $is_email_filled }}):
+          - web.open( https://www.amazon.com/ )
+          - web.find( \#nav-signin-tooltip > a.nav-action-button ).click()
+          - web.find( //*[@id="ap_email"] ).type($inputs[email])
+          - web.find( //*[@id="continue"] ).click()
+          - cmd.call(ENTER_PASSWORD)
+    

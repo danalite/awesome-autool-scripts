@@ -1,0 +1,8 @@
+---
+ task: locate-text-on-screen
+ version: 2022-07-01T13:00:00
+
+ actions:   
+   - window.is(Visual Studio Code):
+      - window.find(EXPLORER, {{ {'region':[0,0.15,0,0.1]} }}) => $location
+      - cmd.print($location)

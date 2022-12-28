@@ -1,0 +1,18 @@
+  task: web-headless-browser
+  configs:
+    op-interval: 0.001
+
+  inputs:
+    link: https://hanime.tv/
+
+  actions:
+    - web.init({{ {'headless':True} }})
+    - web.open($inputs[link])
+
+    # Get the element by XPATH
+    - web.find(//*[@id="app"]/div[4]/main/div/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/a) => $a
+    - cmd.print($a)
+
+    # Get attributes of the web element
+    - web.find(//*[@id="app"]/div[4]/main/div/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/a).get(title) => $a
+    - cmd.print($a)

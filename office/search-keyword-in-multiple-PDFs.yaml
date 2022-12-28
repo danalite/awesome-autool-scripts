@@ -1,0 +1,13 @@
+---
+ task: search-keyword-in-multiple-PDFs
+
+ inputs:
+   PDF_path: /Users/hecmay/Desktop/
+   page: 10
+
+ actions:
+   - os.run(ls {{$inputs[PDF_path]}}/*pdf) => $out
+   - cmd.print($out)
+   
+   - data.read({{ $out.split() }}) => $pdfs
+   - cmd.print($pdfs)

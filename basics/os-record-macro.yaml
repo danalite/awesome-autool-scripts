@@ -1,0 +1,9 @@
+---
+ task: replay-mouse-keyboard-actions
+ actions:
+   # record mouse & keyboard actions
+   # information will be dumped into a tag.macro file
+   - os.record(macro-open-game, {{ {
+      'start':'Control+1',
+      'stop':'Control+2'} }})
+

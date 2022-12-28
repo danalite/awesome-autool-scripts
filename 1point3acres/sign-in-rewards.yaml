@@ -1,0 +1,27 @@
+---
+ task: 1point3acres-sign-in-rewards   
+ inputs:
+   sign_in: https://www.1point3acres.com/bbs/dsu_paulsign-sign.html
+   username: $env[SAFE_1POINT3ACRE_USERNAME]
+   password: $env[SAFE_1POINT3ACRE_PASSWORD]
+
+ actions:
+   - web.init()
+   - web.open($inputs[sign_in])
+
+   # 登录
+   - web.find( //div[contains(.\, "请先登录后签到")] ) => $not_login
+   - cmd.if( $not_login ):
+     - cmd.call(login.yaml, {{ {'username':$inputs[username],'password':$inputs[password]} }})
+
+   # 签到
+   - web.find( //div[contains(.\, "您今天已经签到过了")] ) => $signed
+   - cmd.if({{ not $signed }}):
+      - web.find( //*[@id="kx"] ).click()
+      - web.find( //*[@id="todaysay"] ).type(今天过的很开心)
+   
+      # 自动识别语音验证
+      - web.utils(solve-recaptcha-v2-local)
+      - web.find( //*[@id="ct"]/div[1]/div[1]/div/form/table[4]/tbody/tr/td/div/input ).click()
+
+   - web.wait()

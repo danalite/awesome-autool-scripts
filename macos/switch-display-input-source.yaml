@@ -1,0 +1,18 @@
+---
+  task: switch-display-input-source
+  desc: switch the input source of monitor between DP1 and HDMI2
+
+  actions:
+    - db.read(MONITOR_INPUT) => $prev
+    - cmd.if({{ $prev[val] == 'HDMI2' }}):
+        - cmd.print(Switching to DP1)
+        - os.run(ddcctl -d 1 -i 15)
+        - db.write(MONITOR_INPUT, DP1)
+
+    - cmd.if({{ $prev[val] == 'DP1' }}):
+        # other input sources: https://github.com/kfix/ddcctl#input-sources
+        - cmd.print(Switching to HDMI2)
+        - os.run(ddcctl -d 1 -i 18)
+        - db.write(MONITOR_INPUT, HDMI2)
+
+

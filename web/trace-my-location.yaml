@@ -1,0 +1,10 @@
+---
+  task: query-physical-location
+
+  actions:
+    - web.http(GET, http://api.ipify.org?format=json) => $resp
+    - web.http(GET, http://ip-api.com/json/{{$resp[ip]}}) => $location
+
+    # latitude and longitude, country and city
+    - cmd.print( ({{$location[lat]}} {{$location[lon]}}) )
+    - cmd.print( {{$location[country], $location[regionName], $location[city]}} )

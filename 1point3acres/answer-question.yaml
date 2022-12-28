@@ -1,0 +1,36 @@
+---
+ task: answer-question
+ desc: claim daily reward on 1point3acres
+   
+ inputs:
+   question: https://www.1point3acres.com/bbs/ahome_dayquestion-pop.html
+   answers: questions.json
+
+ actions:
+   - web.init()
+   - web.open($inputs[question])
+
+   # 已经登陆，答过题了
+   - web.find( //div[contains(., "您今天已经参加过答题")] ) => $answered
+   - cmd.if({{ not $answered }}):
+      - web.find( //div[contains(., "每日答题")] ) => $start
+
+      - cmd.if({{ not $start }}):
+        - cmd.call(./login.yaml)
+        - web.open($inputs[question])
+
+      # 开始答题
+      - web.find( //*[@id="myform"]/div[1]/span/font ).get(textContent) => $q
+      - data.read({{ $q.replace('【题目】 ', '') }}) => $key
+      - data.read( $inputs[answers] ) => $questions
+      - data.read({{ $questions[$key] }}) => $answer
+   
+      - web.find( //div[@class="qs_option"] ) => $elems
+      - cmd.for_each($elems) => $index, $elem:
+        - web.get($elem, textContent) => $option
+        - cmd.if({{ $option == $answer }}):
+            - web.click($elem)
+
+      - web.utils("solve-recaptcha-v2-local")
+      - web.find( //*[@id="myform"]/div[7]/center/button ).click()
+      - web.wait()

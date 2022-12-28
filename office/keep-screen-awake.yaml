@@ -1,0 +1,13 @@
+---
+ task: keep-screen-awake
+ 
+ desc: 
+   - stupid program that moves mouse every 30s to ensure OS does not sleep
+   - you can for sure change the system setting to prevent sleep, but this is a fun way to do it
+   
+ actions:
+   - cmd.while({{1}}):
+     - cmd.sleep(30s)
+     - data.read($env[MOUSE]) => $x, $y
+     - mouse.move({{ ($x+1, $y+1) }})
+     - mouse.move({{ ($x, $y) }})

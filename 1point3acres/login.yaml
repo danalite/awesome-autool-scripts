@@ -1,0 +1,17 @@
+---
+ task: login
+ inputs:
+   login: https://auth.1point3acres.com/login
+   username: $env[SAFE_1POINT3ACRE_USERNAME]
+   password: $env[SAFE_1POINT3ACRE_PASSWORD]
+
+ actions:
+   - web.init()
+   - web.open($inputs[login])
+
+   - web.find( //input[@placeholder="用户名或邮箱"] ).type($inputs[username])
+   - web.find( //input[@placeholder="密码"] ).type($inputs[password])
+
+   - web.utils(solve-recaptcha-v2-local)
+   - web.find( //input[@id="submit"] ).click()
+   - cmd.sleep(3s)

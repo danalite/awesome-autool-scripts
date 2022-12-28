@@ -1,0 +1,11 @@
+---
+task: monitor-amazon-deals
+inputs:
+  interested_items: [
+    "https://www.amazon.com/dp/B08H93ZRK9",
+    "https://www.amazon.com/dp/B08H93ZRK9",
+    "https://www.amazon.com/dp/B08H93ZRK9",
+  ]
+
+actions:
+  - web.http()

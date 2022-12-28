@@ -1,0 +1,8 @@
+---
+ name: local-store-table-keys
+ version: 2022-09-03 13:00 UTC
+
+ actions:   
+   - db.init({{ {'table':'users'} }}) => $table
+   - db.read($table, KEY) => $data
+   - db.write($table, KEY, {{$data + 1}})

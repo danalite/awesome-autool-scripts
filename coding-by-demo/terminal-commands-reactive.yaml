@@ -1,0 +1,44 @@
+---
+ task: linux-remote-copy-files
+
+ configs:
+  op-interval: 2
+
+ inputs:
+    PWD: xup4cornell
+
+ actions:
+    - os.run(osascript -e 'activate app "Tabby"')
+  
+    - window.is(Tabby):
+      # - window.select_area(TERMINAL_WATCH_REGION) => $region
+
+      - cmd.for_each({{[10]}}) => $index, $elem:
+        - data.read( {{ "{:02d}".format($elem) }} ) => $elem
+  
+        - key.type(scp lab4.zip 2016.zip work.zip zhang-group@zhang-zedboard-{{$elem}}.ece.cornell.edu:~, Enter)
+      
+        - key.type($inputs[PWD], Enter)
+
+        - key.type(ssh zhang-group@zhang-zedboard-{{$elem}}.ece.cornell.edu, Enter)
+        - key.type($inputs[PWD], Enter)
+  
+        - key.type(rm -rf opt usr lab4, Enter)
+        - key.type(unzip 2016.zip, Enter)
+        - key.type(unzip work.zip, Enter)
+        - key.type(unzip lab4.zip, Enter)
+
+        - key.type(sudo rm -rf /usr/include/vivado_hls/*, Enter)
+        - key.type($inputs[PWD], Enter)
+        - key.type(ls /usr/include/vivado_hls/, Enter)
+
+        - key.type(sudo mkdir /usr/include/vivado_hls/2019.2/, Enter)
+        - key.type($inputs[PWD], Enter)
+
+        - key.type(sudo cp -rf opt/xilinx/xilinx_2016.2/Vivado_HLS/2016.2/include/* /usr/include/vivado_hls/, Enter)
+        - key.type($inputs[PWD], Enter)
+
+        - key.type(sudo cp -rf usr/include/vivado_hls/* /usr/include/vivado_hls/2019.2/, Enter)
+        - key.type($inputs[PWD], Enter)   
+
+        - key.press(Ctrl+d)

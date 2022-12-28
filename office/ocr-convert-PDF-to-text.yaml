@@ -1,0 +1,23 @@
+---
+ task: ocr-convert-pdf-to-text
+
+ inputs:
+   PDF_path: /Users/hecmay/Desktop/lab4.pdf
+   page: 10
+
+ actions:
+   - os.run(open -a "Preview" {{$inputs[PDF_path]}})
+  
+   - window.is(Preview):
+      - window.select_area(SELECT OCR REGION) => $region
+      - cmd.for_each($inputs[page]) => $index, $page:
+        # Goto a certain page in preview
+        - key.press(Esc)
+        - key.press(Option+Command+g)
+        - key.type({{$page+1}})
+        - key.press(Enter)
+        
+        - window.ocr($region) => $text
+        # Save OCR text into a TXT
+        - db.write(/Users/hecmay/Desktop/lab4.txt, $text)
+

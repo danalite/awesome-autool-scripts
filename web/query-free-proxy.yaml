@@ -1,0 +1,14 @@
+---
+  task: query-free-proxy
+
+  inputs:
+    link: http://free-proxy.cz/en/
+
+  actions:
+    - web.init({{ {'headless':True} }})
+    - web.open($inputs[link])
+
+    # Captcha solving (custom captcha. using OCR service)
+    - web.find(//*[@id="proxy_list"]/tbody/tr[1]/td[1]).get(textContent) => $IP
+    - cmd.print($IP)
+

@@ -1,0 +1,11 @@
+---
+ task: sync-calling-function
+ version: 2022-09-01T13:00:00
+
+ actions:   
+   # function is defined and invoked locally
+   - cmd.fn(PRINTER):
+      - cmd.if( {{$arg == 'a'}} ):
+          - cmd.print(AAA)
+  
+   - cmd.call(PRINTER, {{'a'}})

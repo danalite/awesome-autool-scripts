@@ -1,0 +1,18 @@
+---
+ task: screen-time-reminder
+ desc: send a reminder if staying on an app for too long
+ 
+ configs:
+    options: ["autostart"]
+
+ actions:
+   - data.read({{0}}) => $count
+   - cmd.while({{1}}):
+      - cmd.sleep(300s)
+      - window.is_active() => $w
+      - cmd.if({{ $w[owner] == "Game" }}):
+         - data.read({{$count + 5}}) => $count
+      
+      - cmd.if({{ $count > 60 }}):
+         - cmd.notify(You have been on Game for 1 hour. Please take a break.)
+

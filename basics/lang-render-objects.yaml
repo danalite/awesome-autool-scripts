@@ -1,0 +1,26 @@
+---
+ task: object-render
+ version: 2022-09-03 13:00 UTC
+
+ inputs: 
+    myData: {
+      'aa': [1, 2, 3]
+    }
+
+ actions:
+  - cmd.print({{ $inputs[myData][aa][0] }})
+  - cmd.print({{ $inputs[myData][aa][0] + $inputs[myData][aa][2] }})
+
+  - cmd.print(aa) => $key
+  - cmd.print({{ $inputs[myData][$key] }})
+
+  # get the value of key 'cc' in the dict
+  - web.http(GET, https://www.bestbuy.com/api/3.0/priceBlocks?skus=6521430) => $resp
+  - cmd.print($resp)
+
+  - cmd.print({{ $resp[0][sku] }})
+  - cmd.print(The number is {{$inputs[myData][aa][0] + $inputs[myData][aa][1]}})
+
+  # deep dictionary approximate search
+  - cmd.print({{ $resp[0][buttonState][1] }})
+

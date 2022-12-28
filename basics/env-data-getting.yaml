@@ -1,0 +1,7 @@
+---
+ task: secure-data-getting
+ version: 2022-09-03 13:00 UTC
+
+ # data is protected
+ actions:   
+   - cmd.print($env[DAY])

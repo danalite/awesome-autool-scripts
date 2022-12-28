@@ -1,0 +1,26 @@
+# https://blog.caomingjun.com/using-python-to-notify-website-changes/
+  task: notify-visa-status-updates
+  inputs:
+    link: https://www.vfsvisaonline.com/Global-Passporttracking/Track/Index?q=shSA0YnE4pLF9Xzwon/x/PPk/PGOUuwCiM9bJfQ11eZzWJY4PnuEU0I4GIg2z7zCTvNUXu3AKRVnM8K5h91BOBz/CPQm/oKowN9A+dw0aa8=
+
+    REF: FRA1NY20229020766
+    DOB: 27/03/1990
+  
+  actions:
+    - web.init()
+    - web.open($inputs[link])
+
+    - web.find(//*[@id="RefNo"]).type($inputs[REF])
+    - web.find(text=DD/MM/YYYY).type($inputs[DOB])
+
+    # Get a screenshot
+    - web.find(//*[@id="CaptchaImage"]).screenshot(CAPTCHA)
+    - data.read(.cache/CAPTCHA.png) => $img
+    - window.ocr($img) => $captcha
+
+    - web.find(//*[@id="CaptchaInputText"]).type($captcha)
+    - web.find(//*[@id="submitButton"]).click()
+    
+    - web.wait()
+
+

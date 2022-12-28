@@ -1,0 +1,14 @@
+---
+ task: dummy-os-update-wallpaper
+ desc: goto fake update website and enter full screen mode
+
+ configs: 
+   op-interval: 0.00
+
+ actions:
+   # Activate Safari and open link
+   - os.run(osascript -e 'activate app "Safari"')
+   - os.run(open -a "Safari" https://fakeupdate.net/apple/)
+
+   # Maximize the window
+   - key.press(Ctrl+Command+f)

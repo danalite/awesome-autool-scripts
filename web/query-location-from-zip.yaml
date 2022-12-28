@@ -1,0 +1,14 @@
+  task: notify-visa-status-updates
+  configs:
+    op-interval: 0.0
+
+  inputs:
+    link: https://hanime.tv/
+
+  actions:
+    - web.init({{ {'headless':True} }})
+    - web.http(GET, https://geocoding.geo.census.gov/geocoder/locations/address?street={{$inputs[street]}}&city={{$inputs[city]}}&state={{$inputs[state]}}&zip={{$inputs[zip]}}&benchmark=Public_AR_Census2020&format=json) => $resp
+
+    # Captcha solving (custom captcha. using OCR service)
+    - web.find(//*[@id="app"]/div[4]/main/div/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/a).get(title) => $title
+    - cmd.print($title)

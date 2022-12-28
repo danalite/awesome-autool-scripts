@@ -1,0 +1,11 @@
+---
+ task: nested-for-loops
+ desc: test case
+ version: 2022-09-03 13:00 UTC
+
+ actions:   
+   - cmd.for_each({{['a','b','c']}}) => $idx_o, $o:
+      - cmd.print($o)
+      - cmd.for_each(1) => $idx_oi, $oi:
+          - cmd.for_each(2) => $idx_i, $i:
+              - cmd.print({{$i}} inside {{$oi}})

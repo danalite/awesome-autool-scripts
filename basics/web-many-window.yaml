@@ -1,0 +1,13 @@
+  task: web-headless-browser
+  configs:
+    task-count: 1
+    op-interval: 0.001
+
+  inputs:
+    link: https://whatismyipaddress.com/
+
+  actions:
+    - web.init({{ {'size':[$INDEX,0,800,500],'proxy':'156.200.116.68:1976:NULL:NULL'} }})
+
+    - web.open($inputs[link])
+    - web.wait()

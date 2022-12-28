@@ -1,0 +1,8 @@
+---
+  name: change-auto-save-time
+  desc: auto-save your powerpoint for every 30s (the default is 10min)
+
+  operations:
+    - cmd.key(command+,)
+    - window.find(Save).click()
+    - window.find()

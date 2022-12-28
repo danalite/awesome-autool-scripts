@@ -1,0 +1,9 @@
+---
+ task: control-flow-while-loop
+ version: 2022-09-03 13:00 UTC
+
+ actions:   
+   - data.read({{ 0 }}) => $a
+   - cmd.while({{ $a < 3 }}):
+      - cmd.print($a)
+      - data.read({{ $a + 1 }}) => $a

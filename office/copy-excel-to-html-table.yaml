@@ -1,0 +1,21 @@
+---
+ task: copy-data-to-html-table
+ desc: 
+    - Usage. 
+
+ configs:
+    op-interval: 0.01
+
+ inputs: 
+   link: https://datatables.net/examples/api/form.html
+   data: [{"age":12}]
+
+ actions:
+   - web.init({{ {'profile':'default', 'headless':False} }})
+   - web.open( $inputs[link] )
+
+   - cmd.for_each($inputs[data]) => $index, $entry:
+      - web.find( //*[@id="row-5-age"] ).type(my age is {{$entry[age]+1}})
+      - web.find( //*[@id="row-5-office"] ).select(New York)
+
+   - cmd.sleep(60s)

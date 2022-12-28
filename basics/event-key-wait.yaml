@@ -1,0 +1,10 @@
+---
+ task: keyboard-on-press-event
+ version: 2022-09-03 13:00 UTC
+
+ actions:
+  - cmd.print(BEFORE)
+  # Block the current task until a global keystroke is pressed
+  - key.wait(1)
+
+  - cmd.print(CONTINUE)

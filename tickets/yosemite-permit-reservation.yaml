@@ -1,0 +1,22 @@
+---
+ task: yosemite-permit-reservation
+ desc: monitor yosemite campsite availability
+
+ inputs:
+    year: 2022
+    month: 07
+    days: [02, 03, 04, 12]
+  
+ # E.x.: https://github.com/sherrysulove/YosemiteTicket/blob/main/YosemiteTicket.py
+ actions:
+   - web.init()
+   - web.http(GET, https://www.recreation.gov/api/timedentry/availability/facility/10086745/monthlyAvailabilitySummaryView?year={{$inputs[year]}}&month={{$inputs[month]}}&inventoryBucket=FIT&tourID=10086746) => $resp
+  
+   - cmd.for_each($inputs[days]) => $index, $day:
+      - data.get($resp, {{ $inputs[year]-$inputs[month]-$day }}, reservable ) => $avail
+
+      - cmd.if({{$avail > 0}}):
+         - cmd.notify($avail)
+
+  
+   

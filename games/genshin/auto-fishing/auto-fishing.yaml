@@ -1,0 +1,29 @@
+---
+ task: genshin-impact-auto-fishing
+
+ configs:
+   op-interval: 0.01
+   options: [endless]
+
+ inputs:
+   size: 1920x1080
+
+ actions:
+
+  - window.is(原神):
+
+    # Check if finishing has started
+    - window.find( {{$inputs[0]}}\fishing.png, {{ {'region':[20,30,0,20]} }} ) => $fishing
+
+    # Start fishing
+    - cmd.if($fishing):
+      - window.find( {{$inputs[size]}}\target_left.png ) => $left
+      - window.find( {{$inputs[size]}}\target_right.png ) => $right
+      - window.find( {{$inputs[size]}}\target_up.png  ) => $now
+
+      - cmd.if({{ $now[0] < $left[0] }}):
+        - key.press(Right)
+
+      - cmd.if({{ $now[0] > $right[0] }}):
+        - key.press(Left)
+      

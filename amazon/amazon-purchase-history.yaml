@@ -1,0 +1,50 @@
+# https://github.com/tobiasmcnulty/amzscraper/blob/main/amzscraper.py
+---
+task: get-amazon-purchase-history
+desc: get all your amazon purchase history of a certain year
+
+configs:
+  op-interval: 0.5
+
+inputs:
+  email: xiang.elec@gmail.com
+  password: $env[SAFE_AMAZON_PASSWORD]
+  year: 2021
+  maxPage: 10
+
+actions:
+  - data.read($env[HOME]\Desktop\amazon-purchase-history-{{ $inputs[year] }}.csv) => $csv
+
+  - web.init({{ {'profile':'default'} }})
+  - cmd.call(./amazon-login.yaml, {{ {'email':$inputs[email], 'password':$inputs[password]} }} )
+
+  # Get order history of desired year
+  - web.open(https://www.amazon.com/gp/css/history/orders/view.html?orderFilter=year-{{$inputs[year]}}&startAtIndex=1000)
+
+  # Go over pages 
+  - cmd.for_each($inputs[maxPage]) => $p_index, $page:
+      - web.find( //a[normalize-space(text())='{{$page_index+1}}'] ) => $next_page
+      - cmd.if({{ $next_page }}):
+          - web.click($next_page)
+
+          # Go over orders on the page
+          - web.find( //div[contains(@class, "js-order-card")] ) => $orders
+          - cmd.for_each($orders) => $o_index, $order:
+
+              # Get order number, product name, SKU, and price
+              - web.find( (//span[contains(., 'Order \#')]/following-sibling::span[1])[{{$o_index+1}}]/bdi).get(textContent) => $order_id
+
+              - web.find( (//div[contains(@class, 'js-order-card')][{{$o_index+1}}]//a[contains(@href,'gp/product')])[2] ).get(textContent) => $SKU
+
+              - web.find( (//div[contains(@class, 'js-order-card')])[{{$index+1}}]//span[contains(.,'$')] ).get(textContent) => $price
+
+              - web.find( ((//div[contains(@class, 'js-order-card')])[{{$index+1}}]//span[contains(.,'{{$inputs[year]}}')])[1] ).get(textContent) => $str
+
+              - data.parse($str, {{ {'regex':'(\w+)\s(\d{1,2})\,(\s\d{4}))'} }} => $M, $D, $Y
+              - cmd.print( [ORDER] {{$Y}}-{{$M}}-{{$D}}, {{$name}}, {{$order_id}})
+
+              # Insert into database if it is a new record
+              - db.read(db=$csv, table=amazon, key=$order_id) => $found
+              - cmd.if({{ not $found }}):
+                  - db.write(db=$csv, table=amazon, key=$order_id, 
+                      data={{'year':$Y, 'month':$M, 'day':$D, 'SKU':$SKU, 'price':$price}})

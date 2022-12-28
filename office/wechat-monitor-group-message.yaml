@@ -1,0 +1,44 @@
+---
+ task: wechat-monitor-group-message
+ desc: 
+    - 不同于ichat/wxpy, 这里并不是通过API的方式监控群消息,而是完全通过微信的界面操作和OCR来实现监控。这样做的好处是不会被封号
+    - 但是缺点是需要使用OCR服务,并且需要手动选取OCR识别区域
+
+ inputs:
+   groups: ["康村跳蚤租房2", "MST_CSSA"]
+   keyword: "转租"
+
+ actions:
+   - window.is(WeChat):
+      # Setup the search bar location and OCR region (relative)
+      - window.select_area(搜索栏) => $search_bar
+      - window.select_area(OCR区域) => $ocr_region
+
+      # Check each chat group
+      - cmd.for_each($inputs[groups]) => $g_index, $group:
+         # Search group name using search bar
+         - mouse.click($search_bar)
+         - key.type($group, Enter)
+         - cmd.sleep(1s)
+
+         # Stop if the message is older than a day (86400s)
+         - data.read({{ $env[NOW] }}) => $msg_date
+         - cmd.while({{ $env[NOW] - 86400000 <= $msg_date }}):
+            # Find UI blocks of time stamp and do OCR
+            - window.find(*, {{ {'size':[0,100,0,11], 'region':$ocr_region} }}) => $regions
+
+            - cmd.for_each($regions) => $r_index, $region:
+               - window.ocr($region, {{ {'lang':'en'} }}) => $text
+               - data.parse($text, {{ 'type':'date' }}) => $msg_date
+
+            # Scroll up a bit to load more messages
+            - mouse.scroll(-100)
+
+            # Locate the message blocks and OCR
+            - window.find(*, {{ {'size':[0,100,0,11], 'region':$ocr_region} }}) => $text_regions
+
+            # Check if the keyword is in the message
+            - cmd.for_each($text_regions) => $r_index, $text_region:
+               - window.ocr($text_region, {{ {'lang':'ch'} }}) => $text
+               - cmd.if({{$input[keyword] in $text}}):
+                  - cmd.notify($env[IPHONE], {{ {'title':'Found information',content:} }})

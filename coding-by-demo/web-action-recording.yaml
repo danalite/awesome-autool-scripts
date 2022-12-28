@@ -1,0 +1,5 @@
+ task: record-web-actions
+
+ actions:
+  - web.init({{ {} }})
+  - web.record(ACTION, {{ {'start':'Ctrl+1'} }})

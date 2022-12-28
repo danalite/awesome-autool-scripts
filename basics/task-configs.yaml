@@ -1,0 +1,13 @@
+---
+ task: replay-mouse-keyboard-actions
+ 
+ configs:
+   # run task on Mon & Wed 11pm from Jan to Nov
+   start-time: Mon,Wed *-1..11-* 23:00 UTC
+
+   # wait time between ops in actions
+   op-interval: 0.01
+   options: [autostart, endless, remote]
+
+ actions:
+   - cmd.notify()

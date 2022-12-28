@@ -1,0 +1,31 @@
+---
+ task: discover-enable-purchase-email-notification
+
+ inputs:
+   link: https://portal.discover.com/customersvcs/universalLogin/ac_main
+   user: hecmay2023
+
+ actions:
+   - web.init()
+   - web.open($inputs[link])
+
+   # XPATH for username, password and login button
+   - web.find( //*[@id="userid-content"] ).type( $inputs[link])
+   - web.find( //*[@id="password-content"] ).type( $inputs[user] )
+   - web.find( (//*[@id="log-in-button"])[2] ).click()
+ 
+   # goto email notification settings
+   - web.open( https://card.discover.com/cardmembersvcs/emailreminder/showEmailProfile )
+   - web.find( //*[@id="accordion"]/div[6]/a ).click()
+
+   # get alert emails with purchase > $0.5
+   - web.find( //*[@id="TAMTAMT"] ).type(0.5)
+   - web.find( //*[@id="TAMT100"] ).click()
+
+   - web.find( //*[@id="BALAAMT"] ).type(600)
+   - web.find( //*[@id="MRRWAMT"] ).type(300)
+   - web.find( //*[@id="saveAlertForm"] ).click()
+   
+   - web.wait()
+
+

@@ -1,0 +1,13 @@
+---
+ name: open_webpage
+ inputs:
+   - https://www.1point3acres.com/bbs/dsu_paulsign-sign.html
+
+ operations:
+   - web.init()
+
+   # call login script if re-login needed
+   - web.open(inputs[0])
+   - web.find() => $["ret"]
+   - cmd.jump($["ret"], this+2, this+1)
+   - cmd.call("recaptcha-login.yaml")

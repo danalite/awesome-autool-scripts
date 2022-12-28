@@ -1,0 +1,21 @@
+  task: monitor-anime-updates
+
+  configs:
+    op-interval: 0.01
+    start-time: Mon-Sun 1-31 1-12 08:00 UTC (10H)
+
+  inputs:
+    link: https://hanime.tv/
+
+  actions:
+    - db.init() => $db
+    - web.init({{ {'headless':True} }})
+    - web.open($inputs[link])
+
+    # Captcha solving (custom captcha. using OCR service)
+    - web.find(//*[@id="app"]/div[4]/main/div/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/a).get(title) => $title
+
+    - db.read($db, {{ {'key':'LAST_UPDATE'} }}) => $last_update
+    - cmd.if({{ $title != $last_update }}):
+      - db.write($db, {{ {'key':'LAST_UPDATE','value':$title} }})
+      - cmd.notify({{ {'title':'anime update','content':$title} }})

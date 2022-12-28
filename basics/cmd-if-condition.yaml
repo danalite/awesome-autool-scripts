@@ -1,0 +1,8 @@
+---
+ task: control-flow-if-goto
+ version: 2022-09-03 13:00 UTC
+
+ actions:   
+   - cmd.for_each({{ ['a','b','c'] }}) => $index_o, $o:
+      - cmd.if( {{ $o == 'a'}} ):
+          - cmd.print(A)

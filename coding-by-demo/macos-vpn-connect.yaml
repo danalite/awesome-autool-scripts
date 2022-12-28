@@ -1,0 +1,13 @@
+---
+  task: vpn-connect
+  desc: launch openVPN from macOS panel, connect, and close it
+
+  actions:
+   - os.record(start-open-vpn, {{ {
+      'start':'Control+1',
+      'stop':'Control+2', 
+      'mode':'mouse',
+      'interval':0.5,
+      'track':['key', 'click', 'move', 'delay']} }})
+
+   - os.replay(start-open-vpn)

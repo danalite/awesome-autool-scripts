@@ -1,0 +1,16 @@
+---
+ task: stock-price-alert
+ inputs:
+   PS5: 6429440
+
+ actions:
+   - web.http(GET, https://www.bestbuy.com/api/3.0/priceBlocks?skus={{$inputs[PS5]}}) => $resp
+
+   # Option1: use commercial stock API
+   # https://medium.com/the-handbook-of-coding-in-finance/how-to-build-a-real-time-stock-alert-messaging-system-in-python-15fc1d8bdcaf
+   - cmd.if( {{$status != "SOLD_OUT" }} ):
+      - cmd.notify({{ {
+          'title':'Restocked', 
+          'text':"https://www.bestbuy.com/site/{{$inputs[PS5]}}.p"} }})
+  
+   # Option2: store stock prices locally

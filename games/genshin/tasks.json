@@ -1,0 +1,9 @@
+{
+    "app": "genshin-impact",
+    "author": "hecmay",
+    "logo": "https://cdgameclub.com/games/images/20220419/genshin_impact_1650363169028.jpeg",
+    "tasks": [
+        "heal-when-HP-too-low.yaml",
+        "claim-exploration-reward.yaml"
+    ]
+}
