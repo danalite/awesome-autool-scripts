@@ -5,6 +5,6 @@
    # Run QT screen recorder, select screen region and start recording
    - os.run(quick-time-start-record.applescript)
 
-   # Press Esc when you finished recording
+   # Press Esc to stop recording and save the file
    - key.wait(Esc)
    - os.run(quick-time-stop-record.applescript)

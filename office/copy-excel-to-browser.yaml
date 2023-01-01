@@ -5,14 +5,10 @@
     - 1. Parse data in clipboard into a 2D list
     - 2. Open a browser and paste the data into the browser
 
- demo: https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1
-
  actions:
-   - cmd.sleep(3s)
-   - data.read(clipboard) => $items
-   - cmd.for_each($items) => $index, $item:
-      - key.type({{ $item[0] }}, Tab)
-      - key.type({{ $item[1] }}, Tab+Tab)
+   - cmd.for_each( $env[CLIPBOARD] ) => $index, $item:
+      - key.type($item[0], Tab)
+      - key.type($item[1], Tab+Tab)
 
    
   
