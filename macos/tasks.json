@@ -1,0 +1,10 @@
+{
+    "app": "macos-actions",
+    "author": "danalites",
+    "icon": "https://cdn-icons-png.flaticon.com/512/2/2235.png",
+    "tasks": [
+        "screen-split-view.yaml",
+        "quick-time-screen-recorder/quick-time-screen-recorder.yaml",
+        "dummy-os-update-wallpaper.yaml"
+    ]
+}
