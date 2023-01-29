@@ -1,0 +1,12 @@
+---
+ task: user-input-types
+ actions:
+
+    # 1. To select an area on the screen
+    - user.input({{ {'type':'select-area','text':'SELECT AREA BY DRAGGING MOUSE','cache':'TEST'} }}) => $area
+
+    # 2. To (de)choose an option from a list
+    - user.input({{ {'type':'select-option','list':['option1', 'option2'], 'max':1, 'checked':False} }}) => $option
+
+    # 3. To let user input text
+    - user.input({{ {'type':'input-text','list':['ENTER YOUR USERNAME', 'ENTER DOB']} }}) => $text

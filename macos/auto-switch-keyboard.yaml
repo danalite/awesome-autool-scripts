@@ -1,0 +1,17 @@
+--- 
+   task: auto-switch-input-method
+   doc: https://inputsource.pro/
+
+   requirements:
+     - InputSourceSelector
+
+   actions:
+     - event.on(__ACTIVE_WINDOW_CHANGED) => $win:
+      
+       # Chinese Pinyin
+       - cmd.if({{ $win in ['WeChat'] }}):
+         - os.shell(InputSourceSelector select com.apple.inputmethod.SCIM.ITABC)   
+        
+       # English
+       - cmd.if({{ $win in ['Visual Studio Code']}}):
+         - os.shell(InputSourceSelector select com.apple.keylayout.US)

@@ -3,4 +3,4 @@
  
  actions:
    # Example 1: use existing gmail account to generate github account
-   - data.read({{  }}) => $emails
+   - data.eval({{  }}) => $emails

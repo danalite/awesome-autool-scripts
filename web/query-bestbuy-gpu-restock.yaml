@@ -1,0 +1,15 @@
+---
+ task: bestbuy-restock-monitor
+ inputs:
+   RTX4090: 6521430
+
+ actions:
+   - web.http(GET, https://www.bestbuy.com/api/3.0/priceBlocks?skus={{$inputs[RTX4090]}}) => $resp
+
+   # JSON Approximate search 
+   - data.eval( {{ $resp[0][buttonState][1] }} ) => $status
+   
+   - cmd.if( {{ $status != 'SOLD_OUT' }} ):   
+      - user.notify($env[MY_IPHONE], {{ {
+          'title':'RTX 4090 Restocked', 
+          'content':"https://www.bestbuy.com/site/{{$inputs[RTX4090]}}.p"} }})

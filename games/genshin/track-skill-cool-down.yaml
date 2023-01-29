@@ -3,16 +3,11 @@
 
  actions:   
     # 在放e，提取对应角色 skill 冷却时间, 在冷却结束后标记
-    - key.listen(E, INVOKE_SKILL)
-    - event.on(INVOKE_SKILL) => $val:
-      - window.ocr( {{ [12,12,12,12] }} ) => $time
-      - cmd.sleep({{$time}}s)
-      - db.read(CURRENT_ROLE) => $role
+    - event.on(__KEY_PRESSED, {{ {'keys':['E',1,2,3,4]} }}) => $key:
+      - cmd.if():
+        - window.ocr( {{ [12,12,12,12] }} ) => $time
+        - cmd.sleep({{$time}}s)
+        - db.read(CURRENT_ROLE) => $role
       - key.press($role)
-         
-    # 或者切角色的时候
-    - key.listen({{[1,2,3,4]}}, ROLE_CHANGE)
-    - event.on(ROLE_CHANGE) => $val:
-      - db.write(CURRENT_ROLE, {{ $val }})
-
+        
     - cmd.sleep(10000s)

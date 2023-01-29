@@ -9,7 +9,7 @@
    # Option1: use commercial stock API
    # https://medium.com/the-handbook-of-coding-in-finance/how-to-build-a-real-time-stock-alert-messaging-system-in-python-15fc1d8bdcaf
    - cmd.if( {{$status != "SOLD_OUT" }} ):
-      - cmd.notify({{ {
+      - user.notify({{ {
           'title':'Restocked', 
           'text':"https://www.bestbuy.com/site/{{$inputs[PS5]}}.p"} }})
   

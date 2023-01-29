@@ -1,0 +1,10 @@
+---
+ task: gmail-imap
+ desc: monitor gmail accounts emails using IMAP
+
+ actions:
+   - db.init(my@gmail.com, {{ {'password':$env[myIdPassword]} }}) => $myEmail
+
+   
+   - db.read($imap, {{ {'from':'bestbuy.com'} }}) => $emails
+

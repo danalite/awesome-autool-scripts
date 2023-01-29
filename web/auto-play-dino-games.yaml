@@ -1,0 +1,19 @@
+---
+ task: chrome-dino-game
+ desc: 
+   - detect obstacle and press space
+ 
+ actions:
+  - web.init({{ {'size':(300,200) } }})
+  - web.open(https://offline-dino-game.firebaseapp.com/)
+
+  - window.is(Google Chrome):
+    - key.press(Space)
+    - cmd.while({{1}}):
+      # wait for region to change
+      - window.wait({{ {
+          'type':'change',
+          'region':[80,205,30,40],
+          'interval':0.5,'difference':0.6} }})
+      - key.press(Space)
+

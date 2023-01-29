@@ -7,7 +7,7 @@
    # Example. signal when 
    - event.on(SIGNAL_NEW_UPDATE) => $val:
       - cmd.if( {{$val == 1}} ):
-          - cmd.notify($env[MY_PHONE], "New update available")
+          - user.notify($env[MY_PHONE], "New update available")
   
    # you can also send signal from another task to trigger the above event
    - event.send(SIGNAL_NEW_UPDATE, {{1}})

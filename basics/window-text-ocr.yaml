@@ -4,5 +4,11 @@
 
  actions:   
    - window.is(Visual Studio Code):
+
+      # Text target => location
       - window.find(EXPLORER, {{ {'region':[0,0.15,0,0.1]} }}) => $location
+
+      # Image screenshot => text
+      - window.ocr({{ {'area':[...]} }}) => $text
+
       - cmd.print($location)

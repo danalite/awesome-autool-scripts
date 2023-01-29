@@ -1,7 +1,8 @@
 ---
  task: watch-for-redeem-code
  actions:   
-    - event.on(CLOUD_PRIMO_GEMS_CODE) => $val:
-      - cmd.notify({{ {'title':'Genshin Redeem Code', 'text':$val[ASIA] } }})
+    - data.eval() => $http
+    - event.on() => $val:
+      - user.notify({{ {'title':'Genshin Redeem Code', 'text':$val[ASIA] } }})
 
     - cmd.sleep(10000s)

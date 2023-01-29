@@ -1,0 +1,15 @@
+---
+ task: open-macos-settings
+ actions:
+
+   # open accessibility, and enable voice control
+   - event.on(__KEY_PRESSED) => $key:
+        - os.open("System Preferences", "Accessibility|Voice Control|Enable Voice Control", "|")
+
+   # change the sound input of the computer
+   - os.open("System Preferences", "Sound|Voice Control", "|")
+
+   # check what apps are listening to your location
+   - os.open("System Preferences", "Security & Privacy|Location Services", "|")
+
+   - cmd.sleep("15s")

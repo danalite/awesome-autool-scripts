@@ -1,0 +1,11 @@
+---
+ task: keep-screen-awake
+ desc: https://
+
+ configs:
+   options: ['autostart']
+   
+ actions:
+   - cmd.while({{1}}):
+     - cmd.sleep(60s)
+     - key.press(Option)

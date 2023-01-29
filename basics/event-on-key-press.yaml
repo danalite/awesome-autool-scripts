@@ -3,13 +3,8 @@
  version: 2022-09-03 13:00 UTC
 
  actions:
-   # register a key listening event named "HIT_KEY_1234"
-   - key.listen({{[1,2,3,4]}}, PRESS_KEY_1234)
-   - event.on(PRESS_KEY_1234) => $ARGS:
-      - cmd.print(callback function. {{$ARGS}} pressed)
-      - cmd.if( {{$ARGS == '1'}} ):
+   - event.on(__KEY_PRESSED, {{ {'keys':[1,2,3,4]} }}) => $key:
+      - cmd.if( {{$key == '1'}} ):
           - cmd.print(key 1 pressed)
 
-   # wait for user to input 1,2,3,4
-   # event will be cleared when task exits or is stopped
    - cmd.sleep(10000s)

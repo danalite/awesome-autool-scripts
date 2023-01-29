@@ -1,0 +1,12 @@
+---
+ task: ocr-snapshot
+
+ actions:
+   - cmd.if({{ $env[OS] == 'macos' }}):
+     - user.notify({{ {'title':'Select the OCR region'} }})
+     - key.press(Cmd+Shift+4)
+
+   - window.ocr($env[CLIPBOARD]) => $env[CLIPBOARD]
+   
+   
+

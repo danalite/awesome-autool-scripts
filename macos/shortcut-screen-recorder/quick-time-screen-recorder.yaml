@@ -1,0 +1,10 @@
+---
+ task: quick-time-screen-recorder
+ 
+ actions:
+   # Run QT screen recorder, select screen region and start recording
+   - os.shell(quick-time-start-record.applescript)
+
+   # Press Esc to stop recording and save the file
+   - key.wait(Esc)
+   - os.shell(quick-time-stop-record.applescript)

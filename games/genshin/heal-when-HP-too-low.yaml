@@ -8,7 +8,7 @@
  actions:
     - window.is(Genshin Impact):
       - window.ocr({{[30,40,90,100]}}) => $raw
-      - data.read({{ $raw.split('/') }}) => $low, $total
+      - data.eval({{ $raw.split('/') }}) => $low, $total
 
       # 自动进入补血界面，如果血量低于30%
       - cmd.if({{ $low < 0.3 * $total }}):

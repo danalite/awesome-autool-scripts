@@ -21,9 +21,9 @@
 
       # 开始答题
       - web.find( //*[@id="myform"]/div[1]/span/font ).get(textContent) => $q
-      - data.read({{ $q.replace('【题目】 ', '') }}) => $key
-      - data.read( $inputs[answers] ) => $questions
-      - data.read({{ $questions[$key] }}) => $answer
+      - data.eval({{ $q.replace('【题目】 ', '') }}) => $key
+      - data.eval( $inputs[answers] ) => $questions
+      - data.eval({{ $questions[$key] }}) => $answer
    
       - web.find( //div[@class="qs_option"] ) => $elems
       - cmd.for_each($elems) => $index, $elem:

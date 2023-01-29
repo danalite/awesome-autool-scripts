@@ -1,0 +1,6 @@
+---
+ task: charge-battery-limit
+ doc: https://github.com/davidwernhart/AlDente-Charge-Limiter
+
+ desc: 
+  - charge battery up to 80% when plugged in

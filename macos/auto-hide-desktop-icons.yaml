@@ -1,0 +1,11 @@
+--- 
+   task: auto-hide-desktop-icons
+   doc: https://sspai.com/post/33732
+
+   actions:
+     - os.shell(defaults read com.apple.finder CreateDesktop) => $val
+     - cmd.if({{ $val == 0 }}):
+       - os.shell(defaults write com.apple.finder CreateDesktop -bool true; killall Finder)
+
+     - cmd.if({{ $val == 1 }}):
+       - os.shell(defaults write com.apple.finder CreateDesktop -bool true; killall Finder)

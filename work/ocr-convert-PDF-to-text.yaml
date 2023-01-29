@@ -1,0 +1,23 @@
+---
+ task: ocr-convert-pdf-to-text
+
+ actions:
+   # select which PDF to convert and open it
+   - user.input({{ {'type':'file'} }}) => $pdf
+   - os.shell(open -a "Preview" {{$pdf}})
+  
+   - window.is(Preview):
+      # select region and 
+      - user.input({{ {'type':'region'} }}) => $region
+      - user.input({{ {'type':'int'} }}) => $max
+
+      - cmd.for_each($max) => $index, $page:
+        - key.press(Esc)
+        - key.press(Option+Command+g)
+        - key.type({{$page+1}})
+        - key.press(Enter)
+        
+        - window.ocr($region) => $text
+        # Save OCR text into a TXT
+        - db.write(/Users/hecmay/Desktop/lab4.txt, $text)
+

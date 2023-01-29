@@ -1,0 +1,8 @@
+---
+ task: clipboard-copy-to-browser
+ desc: Copy a table in clipboard to website
+
+ actions:
+   - cmd.for_each( $env[CLIPBOARD] ) => $index, $item:
+      - key.type($item[0], Tab)
+      - key.type($item[1], Tab+Tab)

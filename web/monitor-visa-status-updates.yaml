@@ -13,10 +13,9 @@
     - web.find(//*[@id="RefNo"]).type($inputs[REF])
     - web.find(text=DD/MM/YYYY).type($inputs[DOB])
 
-    # Get a screenshot
+    # Get a screenshot and do OCR
     - web.find(//*[@id="CaptchaImage"]).screenshot(CAPTCHA)
-    - data.read(.cache/CAPTCHA.png) => $img
-    - window.ocr($img) => $captcha
+    - window.ocr(.cache/CAPTCHA.png) => $captcha
 
     - web.find(//*[@id="CaptchaInputText"]).type($captcha)
     - web.find(//*[@id="submitButton"]).click()
