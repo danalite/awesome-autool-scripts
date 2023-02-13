@@ -1,0 +1,17 @@
+task: search-memes
+
+actions:
+  # https://serpapi.com/playground?q=%E5%B0%B1%E8%BF%99+%E8%A1%A8%E6%83%85%E5%8C%85&tbm=isch&ijn=0
+  
+  - web.init({{ {'headless':True} }})
+  - web.open(https://www.doutub.com/img_lists/new/1) 
+  - web.find( //img[count(preceding::img) < 5] ) => $list
+
+  - cmd.for_each($list) => $index, $elem:
+    - web.get($elem, src) => $src
+    - cmd.print({{$src}})
+
+configs:
+  hotkey: ''
+  options: []
+  shortcut: true

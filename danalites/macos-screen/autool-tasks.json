@@ -1,0 +1,15 @@
+{
+    "app": "macos-screen",
+    "author": "danalite",
+    "icon": "https://www.macscreenrepair.com/wp-content/uploads/2022/01/2020-Air.jpg",
+    
+    "tasks": [        
+        "dummy-os-upgrade-wallpaper.yaml",
+        "change-wallpaper.yaml",
+        "hide-desktop-icons.yaml",
+
+        "arrange-windows.yaml",
+        "track-app-active-time.yaml",
+        "change-display-source.yaml"
+    ]
+}

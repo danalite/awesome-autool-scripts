@@ -1,0 +1,15 @@
+task: record-audio
+actions:
+  - >-
+    os.shell(osascript -e 'tell application "QuickTime Player" to new audio
+    recording')
+  - >-
+    os.shell(osascript -e 'tell application "System Events" to tell process
+    "QuickTime Player"' -e 'set frontmost to true' -e 'end tell')
+  - >-
+    os.shell(osascript -e 'tell application "System Events" to set position of
+    first window of application process "QuickTime Player" to {800\,400}')
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false

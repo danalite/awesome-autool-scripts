@@ -1,0 +1,20 @@
+task: aigc-novel-ai
+
+# https://github.com/AbdBarho/stable-diffusion-webui-docker/wiki/Setup
+actions:
+  - user.input({{ {'type':'select', 'options':['1girl', 'sky','student','lake','tree'], 'min':0, 'preset':False} }}) => $target
+
+  - web.http(GET, https://yande.re/post.json?limit=5&tags=azuuru) => $resp
+  - data.read({{ [] }}) => $set
+  - cmd.for_each({{ $resp }}) => $index, $item:
+    - data.read({{ $item[preview_url] }}) => $url
+    - data.read({{ $set.__add__([$url]) }}) => $set
+    # - os.shell(open -a 'Google Chrome' '{{ $url }}')
+  
+  # Show previews (copy)
+  - user.notify(Click to copy image, {{$set}}, {{ {'timeout':30,'isPreview':True } }})
+
+configs:
+  hotkey: ''
+  options: []
+  shortcut: true

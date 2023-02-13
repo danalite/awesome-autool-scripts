@@ -1,0 +1,21 @@
+---
+ task: track-app-screen-time
+ 
+ configs:
+    options: ["autostart"]
+
+ actions:
+   # Record the screen time in a daily basis
+   - data.read({{ ['app', 'time_in_seconds'] }}) => $header
+   - data.read({{$env[YEAR]}}-{{$env[MONTH]}}-{{$env[DAY]}}) => $date
+   - db.init({{$env[HOME]}}/Desktop/stats/{{$date}}.csv, {{ {'headers':$header} }}) => $csv
+
+   - cmd.while({{1}}):
+      - cmd.sleep(60s)
+      - window.is_active() => $win
+
+      # store and update value in CSV table
+      - db.read($csv, {{ {'key':$win[owner] } }}, {{ [$win[owner], 0] }}) => $stats
+
+      - data.update(stats, {{1}}, {{ int($stats[1]) + 60 }})
+      - db.write($csv, {{ {'key':$win[owner], 'value':$stats } }})

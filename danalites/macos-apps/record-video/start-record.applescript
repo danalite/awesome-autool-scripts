@@ -7,5 +7,5 @@ tell application "System Events" to tell process "Screen Shot"
     repeat until exists button "Record" of its front window
         delay 0.1
     end repeat
-    -- click button "Record" of its front window
+    click button "Record" of its front window
 end tell

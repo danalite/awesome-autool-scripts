@@ -1,0 +1,9 @@
+task: aigc-novel-ai
+actions:
+  - >-
+    user.input({{ {'type':'text', 'options':['1girl',
+    'sky','student','lake','tree'], 'min':0, 'preset':False} }}) => $target
+configs:
+  hotkey: ''
+  options: []
+  shortcut: false

@@ -1,0 +1,17 @@
+task: change-wallpaper
+configs:
+  op-interval: 0
+  options: []
+  shortcut: true
+
+actions:
+  # change wallpaper to bing.com photo of the day
+  - web.http(GET, https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1) => $resp
+  - data.read({{ $resp[images][0][url] }}) => $url
+
+  # Downloaded to temp image file
+  - web.http(DOWNLOAD, https://www.bing.com{{ $url }}) => $img
+  - os.shell(osascript -e 'tell application "System Events" to tell every desktop to set picture to "{{ $img }}"')
+
+  # Reset the wallpaper to default
+  # - os.shell(osascript -e 'tell application "System Events" to tell every desktop to set picture to "NULL"')

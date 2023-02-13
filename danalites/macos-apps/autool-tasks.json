@@ -1,0 +1,15 @@
+{
+    "app": "macos-apps",
+    "author": "danalite",
+    "icon": "https://w7.pngwing.com/pngs/249/781/png-transparent-mac-app-store-computer-icons-macos-apps-blue-angle-logo.png",
+    
+    "tasks": [
+        "app-launcher.yaml",
+        "record-video/record-video.yaml",
+        "record-audio.yaml",
+        "screenshot.yaml",
+        "close-apps.yaml",
+        "open-terminal-from-folder/open-terminal-from-folder.yaml",
+        "git-cheat-sheet.yaml"
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "app": "macos-settings",
+    "author": "danalite",
+    "icon": "https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/0024/6515/brand.gif?itok=SqVrSiha",
+    
+    "tasks": [
+        "mute-audio.yaml",
+        "auto-switch-keyboard-input.yaml",
+        "switch-dark-mode.yaml",
+        "manage-login-items.yaml",
+        "system-preference-gateway.yaml",
+
+        "force-shutdown/force-shutdown.yaml"
+    ]
+}

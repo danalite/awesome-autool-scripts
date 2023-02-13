@@ -1,17 +1,17 @@
 ---
- task: discover-enable-purchase-email-notification
-
- inputs:
-   link: https://portal.discover.com/customersvcs/universalLogin/ac_main
-   user: hecmay2023
+ task: discover-card-purchase-alert
 
  actions:
    - web.init()
-   - web.open($inputs[link])
+   - web.open(https://portal.discover.com/customersvcs/universalLogin/ac_main)
+
+   - user.input({{ {'type':'text',
+    'title':'Input CC username and passwd','names':['user','passwd'] } }}) => $data
 
    # XPATH for username, password and login button
-   - web.find( //*[@id="userid-content"] ).type( $inputs[link])
-   - web.find( //*[@id="password-content"] ).type( $inputs[user] )
+   - web.find( //*[@id="userid-content"] ).type( $data[0] )
+   - web.find( //*[@id="password-content"] ).type( $data[1] )
+
    - web.find( (//*[@id="log-in-button"])[2] ).click()
  
    # goto email notification settings

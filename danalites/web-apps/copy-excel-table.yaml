@@ -1,0 +1,16 @@
+task: copy-excel-table
+actions:
+  # Load data from clipboard to a list of data
+  # e.g., a table  0    1  will converted to [ [0,1], [2,3] ]
+  #                2    3  
+  - cmd.for_each( $env[CLIPBOARD] ) => $index, $line:
+     - data.read({{ $line.split('\t') }}) => $items
+     - key.type({{ $items[0] }}, Tab)
+
+     # Enter 2nd data from $item, and press Tab * 2
+     - key.type({{ $items[1] }}, Tab+Tab)
+
+configs:
+  hotkey: 'Ctrl+J'
+  options: []
+  shortcut: true

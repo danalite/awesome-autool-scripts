@@ -1,0 +1,14 @@
+task: record-video
+actions:
+  - >-
+    os.shell(osascript -e 'tell application "QuickTime Player" to new screen
+    recording')
+  - >-
+    user.notify(QuickTime Screen Recorder, Click to start and press "Escape"
+    when you finish, {{ {'timeout':12} }})
+  - key.wait(Escape)
+  - os.shell(stop-record.applescript)
+configs:
+  options: []
+  hotkey: ''
+  shortcut: true

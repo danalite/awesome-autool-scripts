@@ -1,0 +1,11 @@
+task: git-cheat-sheet
+
+actions:
+  - >-
+    user.notify(QuickTime Screen Recorder, Click to start and press "Escape"
+    when you finish, {{ {'timeout':12} }})
+    
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false

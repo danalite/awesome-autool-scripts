@@ -1,0 +1,12 @@
+{
+    "app": "ai-service",
+    "author": "danalite",
+    "icon": "https://cdn.theorg.com/f913a3aa-4c4f-4363-bd95-8f0e6049170d_medium.jpg",
+    
+    "tasks": [
+        "ocr-screenshot.yaml",
+        "aigc-novel-ai.yaml",
+        "aigc-text-to-audio.yaml",
+        "chatgpt.yaml"
+    ]
+}
