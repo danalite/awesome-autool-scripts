@@ -1,0 +1,40 @@
+task: bing-daily-wallpaper
+configs:
+  op-interval: 0
+  options: []
+  shortcut: false
+  hotkey: ''
+  start-time: ''
+actions:
+  - >-
+    web.http(GET, https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=5)
+    => $resp
+  - >-
+    data.read({{
+    [{'label':'white','value':'https://papers.co/wallpaper/papers.co-mt01-winter-mountain-snow-bw-nature-white-35-3840x2160-4k-wallpaper.jpg'}]
+    }}) => $set
+  - cmd.for_each({{ $resp[images] }}) => $index, $image:
+      - |-
+        data.read({{ $set.__add__([
+          { 'label': $image[title], 'value': 'https://www.bing.com' + $image[url] }
+        ]) }}) => $set
+  - |-
+    user.input({{ 
+      {
+       'type': 'select',
+       'options': $set, 
+       'timeout': 12,
+       'max': 1,
+       'preset': False,
+       'isPreview': True,
+       'title': 'Choose ONE wallpaper'
+      } }}) => $answer
+  - cmd.if({{ len($answer) > 0 }}:
+      - web.http(DOWNLOAD, {{ $answer[0][value] }}) => $img
+      - >-
+        os.shell(osascript -e 'tell application "System Events" to tell every
+        desktop to set picture to "{{ $img }}"')
+  - cmd.if({{ len($answer) == 0 }}:
+      - >-
+        os.shell(osascript -e 'tell application "System Events" to tell every
+        desktop to set picture to "NULL"')

@@ -1,0 +1,19 @@
+---
+ task: weather-alert
+
+ inputs:
+   # City (example: "New+York", "Detroit")
+   city: Detroit
+
+ actions:
+   - web.http(GET, https://wttr.in/{{$inputs[city]}}?format=%l:+%m+%c+%C+%t+%f) => $resp
+   
+   - user.notify({{}})
+
+
+
+
+
+
+  
+

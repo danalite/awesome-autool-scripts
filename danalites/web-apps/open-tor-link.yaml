@@ -1,0 +1,8 @@
+task: open-tor-link
+actions:
+  - web.init({{ {'proxy':'185.199.229.156:7492'} }})
+  - web.open(https://check.torproject.org/)
+  - web.wait()
+configs:
+  options: []
+  shortcut: false

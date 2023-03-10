@@ -1,0 +1,12 @@
+task: open-display-settings
+doc: https://sspai.com/post/33732
+actions:
+  - os.shell(osascript -e 'activate app "Finder"')
+  - os.shell(defaults read com.apple.finder CreateDesktop) => $val
+  - data.read({{  'false' if $val == '1' else 'true' }}) => $condition
+  - >-
+    os.shell(defaults write com.apple.finder CreateDesktop -bool {{$condition}};
+    killall Finder))
+configs:
+  options: []
+  shortcut: false

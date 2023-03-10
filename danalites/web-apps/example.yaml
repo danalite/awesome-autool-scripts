@@ -1,0 +1,11 @@
+
+
+
+task: example-workflow
+configs:
+  hotkey: Ctrl+L
+  
+action: 
+  - window.ocr() => $text
+  - key.type( $env[CLIPBOARD] )
+

@@ -1,0 +1,38 @@
+task: app-launcher
+configs:
+  hotkey: ''
+  start-time: ''
+  options: []
+actions:
+  - >-
+    user.input({{ { 'type':'select',
+    'options':['chrome-incognito','chrome-history','chrome-proxy','gmail','youtube'],
+    'max':1, 'preset':[0,0,1,0,0]} }}) => $target
+  - cmd.if({{ $target == 'chrome-proxy' }}):
+      # - >-
+      #   web.http(GET,
+      #   https://proxylist.geonode.com/api/proxy-list?limit=5&page=1&sort_by=lastChecked&sort_type=desc&protocols=http)
+      #   => $proxies
+      # - data.read({{ $proxies[data][0] }}) => $proxy
+      # - web.init({{ {'proxy':$proxy[ip]+':'+$proxy[port]} }})
+      - web.init({{ {'proxy':'185.199.229.156:7492:fweqiggn:y5duh97pq5hq'} }})
+      - web.open(https://whatismyipaddress.com/)
+      - web.wait()
+      
+  - cmd.if({{$target == 'chrome-incognito'}}):
+      - >-
+        os.shell(open -na 'Google Chrome' --args --incognito
+        'https://google.com')
+
+  - cmd.if({{$target == 'chrome-history'}}):
+      - os.shell(open -na 'Google Chrome' 'chrome://history')
+
+  - cmd.if({{$target == 'gmail'}}):
+      - >-
+        os.shell(open -na 'Google Chrome' --args --profile-directory='Profile 2'
+        'https://mail.google.com/mail/u/0/#inbox')
+        
+  - cmd.if({{$target == 'youtube'}}):
+      - >-
+        os.shell(open -na 'Google Chrome' --args --profile-directory='Profile 2'
+        'https://www.youtube.com')

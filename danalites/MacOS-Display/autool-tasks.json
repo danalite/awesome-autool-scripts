@@ -1,0 +1,25 @@
+{
+    "app": "MacOS-Display",
+    "author": "danalite",
+    "icon": "https://www.macscreenrepair.com/wp-content/uploads/2022/01/2020-Air.jpg",
+
+    "tasks": [
+        "Wallpapers/os-upgrade-wallpaper.yaml",
+        "Wallpapers/bing-daily-wallpaper.yaml",
+
+        "Screen/change-screen-resolution/change-screen-resolution.yaml",
+        "Screen/change-screen-source.yaml",
+        "Screen/keep-screen-awake.yaml",
+
+        "Windows/move-window-to-display/move-window-to-target-display.yaml",
+        "Windows/arrange-windows.yaml",
+        "Windows/quit-windows-in-batch.yaml",
+        "Windows/hide-all-windows.yaml",
+        "Windows/annotate-on-window.yaml",
+
+        "Settings/show-hide-desktop-icons.yaml",
+        "Settings/switch-dark-mode.yaml",
+        "Settings/open-display-settings.yaml"
+
+    ]
+}

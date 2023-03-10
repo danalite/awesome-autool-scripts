@@ -1,0 +1,25 @@
+task: conda-cheat-sheet
+
+actions:
+  # Show the window for 10s
+  # only label is showed
+  - >-
+    user.notify(Click to copy conda commands, {{[
+      {
+        'label':'List existing envs',
+        'value':'conda list'
+      },
+      {
+        'label':'New env',
+        'value': 'conda create --name py35 python=3.5'
+      },
+      {
+        'label':'Remove conda env',
+        'value': 'conda remove --name bio-env toolz boltons'
+      },
+    ]}}, {{ {'timeout':10 } }})
+    
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false

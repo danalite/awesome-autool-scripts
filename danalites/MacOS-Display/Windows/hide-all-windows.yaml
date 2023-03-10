@@ -1,0 +1,6 @@
+task: hide-all-windows
+actions:
+  - key.press(Fn+f11)
+configs:
+  options: []
+  shortcut: false

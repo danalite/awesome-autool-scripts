@@ -1,0 +1,9 @@
+task: upload-to-github
+actions:
+  - >-
+    user.input({{ {'type':'upload', 'title':'Select files to upload', 'max':5,
+    'directory':False} }}) => $options
+  - cmd.print({{ $options }})
+configs:
+  options: []
+  shortcut: false

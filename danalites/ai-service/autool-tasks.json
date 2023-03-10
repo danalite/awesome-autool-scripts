@@ -7,6 +7,6 @@
         "ocr-screenshot.yaml",
         "aigc-novel-ai.yaml",
         "aigc-text-to-audio.yaml",
-        "chatgpt.yaml"
+        "text-to-audio/talking-genie-tts/talking-genie-tts.yaml"
     ]
 }

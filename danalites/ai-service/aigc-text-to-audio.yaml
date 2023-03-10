@@ -1,13 +1,10 @@
 task: aigc-novel-ai
-
-# https://github.com/AbdBarho/stable-diffusion-webui-docker/wiki/Setup
 actions:
-  - user.input({{ {'type':'text', 'options':['Text to convert'] 'preset':['This is an example']} }}) => $target
-
-  # call AI audio conversion service
+  - >-
+    user.input({{ {'type':'text', 'options':['Text to convert'] 'preset':['Hello
+    world']} }}) => $target
   - user.notify({{ 'Converting text to audio...' }})
-
 configs:
   hotkey: ''
   options: []
-  shortcut: true
+  shortcut: false

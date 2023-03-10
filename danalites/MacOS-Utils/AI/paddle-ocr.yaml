@@ -1,0 +1,15 @@
+task: paddle-ocr
+actions:
+  - os.shell(screencapture -c -i -x)
+  - cmd.sleep(0.5s)
+  - |-
+    user.notify(Click to copy OCR result, {{[
+      {
+        'label':'今天和大家探讨一下, 怎央打cxk',
+        'value':'今天和大家探讨一下, 怎央打cxk'
+      }
+    ]}}, {{ {'timeout':10 } }})
+configs:
+  options: []
+  hotkey: Ctrl+M
+  shortcut: true

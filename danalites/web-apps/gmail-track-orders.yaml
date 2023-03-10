@@ -1,9 +1,7 @@
 task: email-track-orders
 actions:
-
   - db.init()
-
 configs:
-  hotkey: 'Ctrl+J'
+  hotkey: ''
   options: []
-  shortcut: true
+  shortcut: false

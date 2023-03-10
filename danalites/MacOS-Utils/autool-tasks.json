@@ -1,0 +1,23 @@
+{
+    "app": "Macos-Utils",
+    "author": "danalite",
+    "icon": "https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/0024/6515/brand.gif?itok=SqVrSiha",
+
+    "tasks": [
+
+        "AI/paddle-ocr.yaml",
+
+        "Media/record-video/record-video.yaml",
+        "Media/record-audio.yaml",
+        "Media/screenshot.yaml",
+
+        "Settings/force-shutdown/force-shutdown.yaml",
+        "Settings/battery-charge-limiter.yaml",
+        "Settings/manage-login-items.yaml",
+        "Settings/mute-audio.yaml",
+
+        "Files/open-terminal-from-folder/open-terminal-from-folder.yaml",
+        "Files/upload-to-github.yaml"
+
+    ]
+}

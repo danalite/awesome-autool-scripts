@@ -1,0 +1,17 @@
+task: talking-genie-tts
+
+actions:
+  - data.read({{ $env[CLIPBOARD] }}) => $text
+
+  - >-
+    web.http(GET,
+    https://dds.dui.ai/runtime/v1/synthesize?voiceId=ppangf_csn&text={{ $text[0] }}&speed=1&volume=50&audioType=wav, {{ {'type':'wav'} }})
+    => $wav
+
+  # MacOS built-in afplay: https://fig.io/manual/afplay
+  - os.shell(afplay -v 0.5 {{ $wav }})
+
+configs:
+  hotkey: ''
+  options: []
+  shortcut: false

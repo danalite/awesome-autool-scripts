@@ -1,7 +1,7 @@
 ---
 task: amazon-login
 inputs:  
-  email: xiang.elec@gmail.com
+  email: YOUR_EMAIL
   password: $env[SAFE_AMAZON_PASSWORD]
 
 actions:

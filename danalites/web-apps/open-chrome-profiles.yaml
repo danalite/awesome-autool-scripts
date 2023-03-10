@@ -1,0 +1,19 @@
+task: open-chrome-profiles
+desc: switch the input source of monitor between DP1 and HDMI2
+actions:
+  - |-
+    user.input({{ {
+      'type':'select', 
+      'title': 'Choose profile to open',
+      'options':[
+        { 'label':'Incognito',   'value':15 },
+        { 'label':'Mike',   'value':16 },
+        { 'label':'Justin', 'value':17 },
+      ],  
+      'max':1,  
+      'preset':False }}}) => $select
+  - os.shell(open -na 'Google Chrome' --args --incognito 'https://google.com')
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false

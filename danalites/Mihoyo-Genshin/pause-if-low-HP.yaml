@@ -1,0 +1,13 @@
+task: heal-when-low-HP
+actions:
+  - cmd.while({{ 1 }}):
+      - window.is(原神):
+          - window.ocr($REGION) => $HP
+          - cmd.if({{$HP < 3000}}):
+              - key.press(Esc)
+      - cmd.sleep(3s)
+
+configs:
+  shortcut: false
+  options: []
+  hotkey: ''

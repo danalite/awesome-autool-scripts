@@ -1,10 +1,8 @@
-task: douyin-subscribe-videos
+task: tictok-videos
 actions:
-  - web.http(GET, https://zj.v.api.aa1.cn/api/video_dyv1) => $resp
-  # - web.http(GET, https://zj.v.api.aa1.cn/api/video_dyv2) => $resp
+  - web.http(GET, https://zj.v.api.aa1.cn/api/video_dyv2) => $resp
   - data.read({{ $resp[url] }}) => $url
-  - os.shell(open -a 'Google Chrome' '{{ $url }}}}')
-
+  - os.shell(open -a 'Google Chrome' '{{ $url }}')
 configs:
   hotkey: ''
   options: []

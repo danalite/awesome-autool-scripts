@@ -1,0 +1,16 @@
+task: heal-if-low-HP
+desc: press "Esc" key when the current character's HP is too low
+
+actions:
+  - cmd.while({{ 1 }}):
+      - window.is(Genshin Impact):
+          - window.ocr({{[30,40,90,100]}}) => $raw
+          - data.read({{ $raw.split('/') }}) => $low, $total
+          - cmd.if({{ $low < 0.3 * $total }}):
+              - key.press(Esc)
+      - cmd.sleep(3s)
+    
+configs:
+  shortcut: false
+  options: []
+  hotkey: ''

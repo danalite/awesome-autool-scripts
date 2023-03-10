@@ -1,0 +1,14 @@
+task: copy-excel-table
+actions:
+  - cmd.for_each( $env[CLIPBOARD] ) => $index, $line:
+      - data.read({{ $line.split('\t') }}) => $items
+      - key.type({{ $items[0] }}, Tab)
+      - key.type({{ $items[1] }}, Tab)
+      - key.type({{ $items[2] }}, Tab)
+      - key.type({{ $items[3] }}, Tab)
+      - key.type({{ $items[4] }}, Tab)
+      - cmd.sleep(20s)
+configs:
+  hotkey: Ctrl+J
+  options: []
+  shortcut: false
