@@ -17,9 +17,10 @@ tell application "System Events" to Â
         of menu bar 1 Â
         of application process "screencaptureui"
 
-
+set userName to do shell script "whoami"
+set savePath to "/Users/" & userName & "/Desktop/myNewRecord.mov"
 tell application "QuickTime Player"
     set savePath to a reference to POSIX file Â
-        ("/Users/hecmay/Desktop/myNewRecord.mov")
+        (savePath as text)
     export the front document in savePath using settings preset "720p"
 end tell

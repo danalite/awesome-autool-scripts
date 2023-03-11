@@ -12,7 +12,7 @@ docker run -d --rm --name yolo_service -dp 8080:8080 --gpus all johannestang/yol
 gir clone https://github.com/johannestang/yolo_service.git
 # Expose 8081 in dockerfile
 
-export DOCKER_REPO="hecmay/yolo_service"
+export DOCKER_REPO="vrteee/yolo_service"
 docker build -t $DOCKER_REPO:1.0_cuda10.0_tc-yolov3_coco \
 	--build-arg weights_file="yolov3.weights" \
 	--build-arg config_file="data/yolov3.cfg" \
@@ -24,7 +24,7 @@ docker build -t $DOCKER_REPO:1.0_cuda10.0_tc-yolov3_coco \
     . 
 
 # Start the service
-docker run -d --rm --name yolo_service -p 8081:8081 --gpus all docker.io/hecmay/yolo_service:1.0_cuda10.0_tc-yolov3_coco
+docker run -d --rm --name yolo_service -p 8081:8081 --gpus all docker.io/vrteee/yolo_service:1.0_cuda10.0_tc-yolov3_coco
 ```
 
 
