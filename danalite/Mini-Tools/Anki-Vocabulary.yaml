@@ -1,0 +1,30 @@
+task: anki-vocabulary
+
+actions:
+  # Get daily words from Anki-connect
+  # - web.HTTP(GET, ...) => $words
+  - data.read({{ ['Hello', 'Good'] }}) => $words
+
+  - cmd.for($words) => $word, $index:
+    - web.HTTP(GPT, 'make a sentence with the word') => $sentence
+    - web.HTTP(TTS, 'make a sentence with the word') => $audio
+
+    - data.read({{ [] }}) => $set
+    # Build a tab for each word
+    - >-
+      data.read({{ $set.__add__([
+         {
+          'type': 'list',
+          'value': [ 
+              {'type': 'text', 'label': $word, 'value': $word },
+              {'type': 'audio', 'label':'Pronounce', 'value': $audio},
+              {'type': 'text', 'value': $sentence},
+              {'type': 'checkbox', 'value': ['Good', 'Easy', 'Hard']},
+          ]
+         }
+       ])    
+      }}) => $tab
+
+  # Array of returned values
+  - >-
+    user.input({{ {'type': 'tabs', 'value': $tabs} }}) => $return

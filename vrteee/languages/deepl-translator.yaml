@@ -1,4 +1,5 @@
-task: talking-genie-tts
+# https://github.com/OwO-Network/DeepLX
+task: deepl-translator
 
 actions:
   - data.read({{ $env[CLIPBOARD] }}) => $text
@@ -12,6 +13,10 @@ actions:
   - os.shell(afplay -v 0.5 {{ $wav }})
 
 configs:
-  hotkey: ''
+  # Meta (i.e., Command or Ctrl) + MouseUp
+  hotkey: 'Meta+C'
   options: []
-  shortcut: false
+  shortcut: true
+
+  # Feed the result to next task
+  forward: []

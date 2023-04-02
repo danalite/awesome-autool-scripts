@@ -1,0 +1,9 @@
+{
+    "app": "单词+翻译",
+    "author": "vrteee",
+    "icon": "https://em.edmentum.com/edmentum_com/homepage/apex.png",
+    
+    "tasks": [
+        "deepl-translator.yaml"
+    ]
+}

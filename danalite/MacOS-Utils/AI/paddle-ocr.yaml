@@ -11,5 +11,5 @@ actions:
     ]}}, {{ {'timeout':10 } }})
 configs:
   options: []
-  hotkey: Ctrl+M
+  hotkey: ''
   shortcut: true

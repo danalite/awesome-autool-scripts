@@ -1,0 +1,8 @@
+{
+    "app": "Mini-Tools",
+    "author": "danalite",
+    "icon": "https://github.com/danalites/autool/blob/main/imgs/logo.png?raw=true",
+    "tasks": [
+        "Password-Manager/Password-Manager.yaml"
+    ]
+}

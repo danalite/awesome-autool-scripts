@@ -2,7 +2,7 @@ task: random-picture
 actions:
   - >-
     user.input({{ {'type':'select', 'title':'select apps to
-    close','options':$apps, 'preset':True} }}) => $target
+    close','options':['Akk'], 'preset':True} }}) => $target
     
   # pc-girl wallpaper
   - web.http(GET, https://v.api.aa1.cn/api/pc-girl_bz/index.php?wpon=json) => $resp

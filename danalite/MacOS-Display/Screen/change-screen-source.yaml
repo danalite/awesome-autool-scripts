@@ -14,7 +14,9 @@ actions:
       'max':1,  
       'preset':False }}}) => $select
   - data.read({{ 15 }}) => $source
+  
 configs:
   options: []
   hotkey: ''
   shortcut: false
+  start-time: 0 */6 * * *

@@ -1,0 +1,84 @@
+task: test-user-input
+desc: components to get user input
+
+actions:
+  # 1. Basic input types (text, checkbox, select)
+  - >-
+    user.input({{
+      {
+        'title': 'Test User Input',
+        'content': {
+          'type': 'list',
+          'content': [
+            {
+              'type': 'text',
+              'label': 'Name',
+              'key': 'name',
+              'placeholder': 'Enter your name'
+            },
+            {
+              'type': 'select',
+              'label': 'Select the tests to run',
+              'key': 'test3',
+              'max': 2,
+              'content': [
+                {
+                  'label': 'Test1',
+                  'value': 'test1'
+                },
+                {
+                  'label': 'Test2',
+                  'value': 'test2'
+                },
+                {
+                  'label': 'Test3',
+                  'value': 'test3'
+                }
+              ]
+            }
+          ],
+        },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret
+
+
+  # 2. Input with other types (carousel, list)
+  - >-
+    user.input({{
+      {
+        'title': 'Test User Input',
+        'content': {
+          'type': 'list',
+          'content': [
+            {
+              'type': 'text',
+              'label': 'Name',
+              'key': 'name',
+              'placeholder': 'Enter your name'
+            },
+            {
+              'type': 'select',
+              'label': 'Select the tests to run',
+              'key': 'test3',
+              'imagePreview': True,
+              'content': [
+                {
+                  'label': 'Test1',
+                  'value': 'https://i.pinimg.com/originals/3e/e7/45/3ee7459cfdbce3cce499d2fd0583f5a9.jpg'
+                },
+                {
+                  'label': 'Test2',
+                  'value': 'https://i.pinimg.com/originals/3e/e7/45/3ee7459cfdbce3cce499d2fd0583f5a9.jpg'
+                },
+                {
+                  'label': 'Test3',
+                  'value': 'https://i.pinimg.com/originals/3e/e7/45/3ee7459cfdbce3cce499d2fd0583f5a9.jpg'
+                }
+              ]
+            }
+          ],
+        },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret  

@@ -1,0 +1,40 @@
+task: test-user-input-dynamic-search
+desc: get dynamically changing search results
+
+actions:
+  # 1. Basic input types (text, checkbox, select)
+  - >-
+    user.input({{
+      {
+        'title': 'Test User Input',
+        'content': {
+          'type': 'list',
+          'content': [
+            {
+              'type': 'text',
+              'label': 'Name',
+              'key': 'name',
+              'placeholder': 'Enter your name'
+            },
+            {
+              'type': 'dynamic',
+              'label': 'Select files from workspace',
+              'key': 'test3',
+              'search': 'File',
+              'params' : {
+                'location': '~/Desktop',
+                'extensions': ['png'],
+                'size': [0, 1000]
+              }
+            },
+            {
+              'type': 'upload',
+              'key': 'test4',
+              'label': 'Upload files'
+            }
+          ]
+        },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret
+  # quant, sparse attention, auto-regressive. pt2.0
