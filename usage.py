@@ -1,31 +1,17 @@
 #!/usr/local/munki/munki-python
 # encoding: utf-8
-#
-# Copyright 2017-2022 Greg Neagle.
-#
-# Licensed under the Apache License, Version 2.0 (the 'License');
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an 'AS IS' BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-"""
-app_usage_monitor
 
-Created by Greg Neagle 14 Feb 2017
-Refactored April 2018 as user-level agent
+# app_usage_monitor
+# 
+# Created by Greg Neagle 14 Feb 2017
+# Refactored April 2018 as user-level agent
+# 
+# A tool to monitor application usage and record it to a database.
+# Borrowing lots of code and ideas from the crankd project, part of pymacadmin:
+#     https://github.com/MacSysadmin/pymacadmin
+# and the application_usage scripts created by Google MacOps:
+#     https://github.com/google/macops/tree/master/crankd
 
-A tool to monitor application usage and record it to a database.
-Borrowing lots of code and ideas from the crankd project, part of pymacadmin:
-    https://github.com/MacSysadmin/pymacadmin
-and the application_usage scripts created by Google MacOps:
-    https://github.com/google/macops/tree/master/crankd
-"""
 from __future__ import absolute_import
 
 # standard Python libs
@@ -37,7 +23,7 @@ import sys
 
 try:
     # Apple frameworks
-    from AppKit import NSWorkspace
+    from AppKit import NSWorkspace, NSNotificationCenter
     from Foundation import NSDate
     from Foundation import NSDictionary
     from Foundation import NSDistributedNotificationCenter
@@ -50,7 +36,6 @@ except ImportError:
 
 APPUSAGED_SOCKET = "/var/run/appusaged"
 
-
 class AppUsageClientError(Exception):
     '''Exception to raise for errors in AppUsageClient'''
     pass
@@ -61,9 +46,7 @@ class AppUsageClient(object):
     def connect(self):
         '''Connect to appusaged'''
         try:
-            #pylint: disable=attribute-defined-outside-init
             self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-            #pylint: enable=attribute-defined-outside-init
             self.socket.connect(APPUSAGED_SOCKET)
         except socket.error as err:
             raise AppUsageClientError(
@@ -72,6 +55,7 @@ class AppUsageClient(object):
     def send_request(self, request):
         '''Send a request to appusaged'''
         try:
+            print(request)
             request_string = writePlistToString(request)
             self.socket.send(request_string)
         except PlistWriteError as err:
@@ -115,7 +99,7 @@ class NotificationHandler(NSObject):
         if self is None:
             return None
 
-        # self.usage = AppUsageClient()
+        self.usage = AppUsageClient()
         self.ws_nc = NSWorkspace.sharedWorkspace().notificationCenter()
 
         self.ws_nc.addObserver_selector_name_object_(
@@ -125,10 +109,17 @@ class NotificationHandler(NSObject):
         self.ws_nc.addObserver_selector_name_object_(
             self, 'didActivateApplicationNotification:',
             'NSWorkspaceDidActivateApplicationNotification', None)
+        
+        # observe window size change: NSWindowDidResizeNotification
+        self.ws_nc.addObserver_selector_name_object_(self, 'mainWindowChanged:', 'NSWindowDidEnterFullScreenNotification', None)
 
+        # https://opensource.apple.com/source/pyobjc/pyobjc-42/pyobjc/pyobjc-framework-Cocoa/PyObjCTest/test_nsworkspace.py
         self.ws_nc.addObserver_selector_name_object_(
             self, 'didTerminateApplicationNotification:',
             'NSWorkspaceDidTerminateApplicationNotification', None)
+    
+        self.nc = NSNotificationCenter.defaultCenter()
+        self.nc.addObserver_selector_name_object_(self, 'mainWindowChanged:', 'NSWindowDidEnterFullScreenNotification', None)
 
         self.dnc = NSDistributedNotificationCenter.defaultCenter()
         self.dnc.addObserver_selector_name_object_(
@@ -178,6 +169,11 @@ class NotificationHandler(NSObject):
         return {'bundle_id': bundle_id,
                 'path': app_path,
                 'version': app_version}
+
+    def mainWindowChanged_(self, info):
+        w = info.object()
+        if hasattr(w, 'windowName'):
+            print(w.windowName())
 
     def didLaunchApplicationNotification_(self, notification):
         """Handle NSWorkspaceDidLaunchApplicationNotification"""

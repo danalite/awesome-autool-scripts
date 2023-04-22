@@ -1,0 +1,8 @@
+x 2023-04-20 fdaaa
+x 2023-04-20 review FCCM pap
+x 2023-04-20 ask about I9/laptop
+x 2023-04-20 review FCCM papers
+x 2023-04-20 Test deepspeed on capra
+x 2023-04-21 watch the GPT video
+x 2023-04-21 build a hugo blog
+x 2023-04-21 a draft on DF dialect

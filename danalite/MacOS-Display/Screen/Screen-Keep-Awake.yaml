@@ -1,0 +1,13 @@
+task: keep-screen-awake
+desc: keep screen awake by pressing Option key every 60 seconds
+
+configs:
+  options: []
+  start-time: ''
+  hotkey: ''
+  shortcut: false
+
+actions:
+  - cmd.while({{1}}):
+      - cmd.sleep(60s)
+      - key.press(Option)

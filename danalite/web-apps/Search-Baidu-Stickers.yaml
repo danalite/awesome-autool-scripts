@@ -1,0 +1,38 @@
+task: Search-Baidu-Stickers
+actions:
+  - >-
+    user.input({{ 
+      {
+        'title':'Search Memes',
+        'content': {
+          'type': 'text', 
+          'label': '关键字',
+          'key': 'keyword',
+        } 
+      }
+    }}) => $target
+
+  - data.read( {{ $target['keyword'] }} ) => $key
+  - >-
+    web.http(GET,
+    https://zj.v.api.aa1.cn/api/so-baidu-img/?msg={{$key}}表情包&page=1) =>
+    $resp
+
+  - data.read({{ $resp['data'] }}) => $images
+  - data.read({{ [ ] }}) => $set
+  - cmd.for_each({{ $images }}) => $index, $image:
+      - data.read({{ $set.__add__([ $image['thumbnailUrl'] ]) }}) => $set
+
+  - >- 
+    user.notify({{ {
+      'title': '点击复制表情包', 
+      'content': {
+        'type': 'carousel',
+        'content': $set
+      }
+    }}})
+
+configs:
+  hotkey: ''
+  options: []
+  shortcut: false

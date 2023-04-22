@@ -1,0 +1,2 @@
+read SAMO paper
+test FT on A6000

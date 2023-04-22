@@ -2,10 +2,19 @@
     "app": "Unit-Tests",
     "author": "danalite",
     "icon": "https://github.com/danalites/autool/blob/main/imgs/logo.png?raw=true",
+
     "tasks": [
-        "test-window-annotate.yaml",
-        "test-user-notify.yaml",
-        "test-user-input.yaml",
-        "test-user-input-dynamic-search.yaml"
+        "Test-User-Input-Webview.yaml",
+        "Test-User-Input-Search.yaml",
+        "Test-User-Input-Select.yaml",
+        "Test-User-Input-Segmentation.yaml",
+
+        "Test-User-Notify.yaml",
+
+        "Test-Window-Annotate.yaml",
+        "Test-Window-Annotate-Callback.yaml",
+
+        "Test-Web-Single.yaml",
+        "Test-Web-Parallel.yaml"
     ]
 }

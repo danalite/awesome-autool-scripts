@@ -12,7 +12,9 @@ actions:
       ],  
       'max':1,  
       'preset':False }}}) => $select
+  
   - os.shell(open -na 'Google Chrome' --args --incognito 'https://google.com')
+
 configs:
   options: []
   hotkey: ''

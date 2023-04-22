@@ -1,0 +1,1 @@
+curl -X POST -F "file=@$PWD/cars.jpg" http://localhost:6111/detect/

@@ -1,0 +1,27 @@
+task: file-launcher
+actions:
+  - |-
+    user.input({{
+      {
+        'title': 'Quick File Launcher',
+        'content': {
+          'type': 'dynamic',
+          'label': 'Search files from workspace',
+          'key': 'openFileName',
+          'search': 'File',
+          'params' : {
+            'location': '~/Desktop',
+            'extensions': ['png'],
+            'size': [0, 1000]
+          },
+          'instantQuit': True,
+          'max': 1
+        },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret
+  - data.read({{ $ret['openFileName']['value'] }}) => $fileName
+  - os.shell(open {{ $fileName }})
+configs:
+  options: []
+  shortcut: true

@@ -1,0 +1,21 @@
+task: record-audio
+actions:
+
+  # AppleScript to start recording
+  - >-
+    os.shell(osascript -e 'tell application "QuickTime Player" to new audio
+    recording')
+  
+  # AppleScript to bring the QuickTime Player window to front
+  - >-
+    os.shell(osascript -e 'tell application "System Events" to tell process
+    "QuickTime Player"' -e 'set frontmost to true' -e 'end tell')
+
+  # AppleScript to move the QuickTime Player window to center
+  - >-
+    os.shell(osascript -e 'tell application "System Events" to set position of
+    first window of application process "QuickTime Player" to {800\,400}')
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false

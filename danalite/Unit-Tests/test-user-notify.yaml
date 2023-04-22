@@ -2,9 +2,14 @@ task: test-user-notify
 desc: show a notification to the user
 
 actions:
-  - web.http(GET, https://tucdn.wpon.cn/api-girl/index.php?wpon=json) => $resp
-  - data.read({{ $resp[mp4] }}) => $url
-  # - cmd.print(https://www.w3schools.com/html/mov_bbb.mp4) => $url
+  # - web.http(GET, https://tucdn.wpon.cn/api-girl/index.php?wpon=json) => $resp
+  # - data.read({{ $resp[mp4] }}) => $url
+
+  # - web.http(GET, https://api-popcord.vercel.app/img/nsfw?type=video) => $resp
+  # - data.read({{ $resp[url] }}) => $url
+
+  # https://github.com/Joel2B/XVideos-PornHub-RedTube-API
+  - cmd.print(https://cdn.discordapp.com/attachments/1088578764465786962/1099372979823063210/123.mp4) => $url
 
   # 1. Basic notification
   - >-

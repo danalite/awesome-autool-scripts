@@ -1,0 +1,32 @@
+task: Screen-Source-Switch
+desc: switch the input source of monitor between DP1 and HDMI2
+
+actions:
+  - |-
+    user.input({{ {
+      'title': 'Monitor 1 Input Source',
+      'content': {
+          'type': 'select',
+          'key': 'entry',
+          'label': 'Sources',
+          'content': [
+            { 'label': 'DisplayPort-1',   'value': 15 },
+            { 'label': 'DisplayPort-2',   'value': 16 },
+            { 'label': 'HDMI1', 'value': 17 },
+            { 'label': 'HDMI2', 'value': 18 }
+          ],
+          'instantQuit': True,
+          'max': 1
+       },
+    } }}) => $select
+
+  - data.read({{ $select['entry'][0] }}) => $source
+
+  - cmd.print(ddcctl -d 1 -i {{ $source }})
+  # - os.shell(ddcctl -d 1 -i {{ $source }})
+
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false
+  start-time: ''

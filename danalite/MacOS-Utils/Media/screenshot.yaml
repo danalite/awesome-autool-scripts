@@ -1,8 +1,0 @@
-task: screenshot
-actions:
-  - cmd.print(SS_{{ $env[MONTH] }}_{{ $env[DAY] }}) => $name
-  - os.shell(screencapture -c -i -x {{ $env[HOME] }}/Desktop/{{ $name }}.png)
-configs:
-  options: []
-  hotkey: ''
-  shortcut: false

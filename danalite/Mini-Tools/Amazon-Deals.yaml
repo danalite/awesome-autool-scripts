@@ -1,7 +1,0 @@
-task: amazon-deals
-
-actions: 
-  - event.on(__AT_AMAZON_DEALS__, ) => $event:
-      - web.http(GET, https://www.amazon.com/gp/goldbox?ref_=nav_cs_gb) => $resp
-  
-  - cmd.sleep(18000s)

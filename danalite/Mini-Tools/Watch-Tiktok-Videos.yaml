@@ -1,0 +1,41 @@
+task: Watch-Tiktok
+desc: crawl a random video from tictok and show in popup windows
+actions:
+  - web.http(GET, https://tucdn.wpon.cn/api-girl/index.php?wpon=json) => $resp
+  - data.read({{ $resp[mp4] }}) => $url1
+  - web.http(GET, https://tucdn.wpon.cn/api-girl/index.php?wpon=json) => $resp
+  - data.read({{ $resp[mp4] }}) => $url2
+
+  # - web.http(GET, https://zj.v.api.aa1.cn/api/video_dyv2) => $resp
+  # - data.read({{ $resp[url] }}) => $url1
+
+  # - web.http(GET, https://zj.v.api.aa1.cn/api/video_dyv2) => $resp
+  # - data.read({{ $resp[url] }}) => $url2
+
+  - |-
+    user.notify({{
+      {
+        'title': 'Tiktok Videos',
+        'content': {
+          'type': 'tabs',
+          'content': [
+            {
+              'tab': 'Source1',
+              'type': 'video',
+              'source': $url1,
+              'label': 'Test1, click me to copy'
+            },
+            { 
+              'tab': 'Source2',
+              'type': 'video',
+              'source': $url2,
+              'label': 'Test1, click me to copy'
+            }
+          ],
+        },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }})
+configs:
+  options: []
+  shortcut: false

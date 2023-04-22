@@ -1,0 +1,5 @@
+task: test-web-single
+actions:
+   - web.init()
+   - web.open(https://www.google.com)
+   - web.wait()

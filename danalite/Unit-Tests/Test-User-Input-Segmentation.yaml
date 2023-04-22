@@ -1,0 +1,25 @@
+task: Test-User-Input-Segmentation
+desc: callback events for annotations
+
+actions:
+  - window.is_active() => $win
+
+  # onHover: shows the mask of current mouse (on target window)
+  # onClick: add current mask to your selection
+  - >- 
+    user.input({{
+      'type': 'dynamic',
+      'label': 'Select the regions',
+      'search': 'Segmentation',
+      'params': {
+        'window': $win,
+        'server': 'http://192.168.0.30:5000/upload',
+      }
+    }}) => $region
+
+  - cmd.print($region)
+
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false

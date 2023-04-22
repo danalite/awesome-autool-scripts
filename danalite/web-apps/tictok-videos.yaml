@@ -1,9 +1,0 @@
-task: tictok-videos
-actions:
-  - web.http(GET, https://zj.v.api.aa1.cn/api/video_dyv2) => $resp
-  - data.read({{ $resp[url] }}) => $url
-  - os.shell(open -a 'Google Chrome' '{{ $url }}')
-configs:
-  hotkey: ''
-  options: []
-  shortcut: true

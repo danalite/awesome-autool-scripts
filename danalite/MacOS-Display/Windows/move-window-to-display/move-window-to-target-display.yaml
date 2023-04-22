@@ -1,7 +1,0 @@
-task: arrange-windows
-doc: https://apps.apple.com/us/app/magnet/id441258766?mt=12
-actions:
-  - data.eval()
-configs:
-  options: []
-  shortcut: false

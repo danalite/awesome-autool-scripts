@@ -1,0 +1,7 @@
+task: arrange-windows
+doc: https://apps.apple.com/us/app/magnet/id441258766?mt=12
+actions:
+  - os.shell(Move-Front-Window-To-Another-Display.applescript)
+configs:
+  options: []
+  shortcut: true

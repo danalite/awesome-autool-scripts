@@ -2,54 +2,47 @@ task: annotate-window
 desc: show annotation on a window, which disappears after a while
 actions:
 
-  - window.is(Code) => $window:
-    # 1. Annotate a floating text on the window
-    - >-
-      window.annotate({{ 
-        {
-          'kind': 'text',
-          'x': 100,
-          'y': 30,
-          'label': 'Test1',
-          'content': 'Hello this is a test'
-        }
-      }})
+  # open Freeform window
+  - os.shell(open -a Freeform)
 
-    # 2. Annotate a rectangle on the window
-    # it shows after the first annotation is turned off
-    # and disappears after showing for 5 seconds
-    - >-
-      window.annotate({{ 
-        {
-          'kind': 'rect',
-          'x': 600,
-          'y': 120,
-          'width': 300,
-          'height': 100,
-          'label': 'Test2',
-          'content': 'Hello this is a test',
-          'duration': 10,
-          'after': ['Test1'],
-        }
-      }})
-
-    # 3. Annotate a box on the window
-    # it disappears after clicking on it
-    - >-
-      window.annotate({{ 
-        {
-          'kind': 'rect',
-          'x': 800,
-          'y': 420,
-          'width': 300,
-          'height': 100,
-          'label': 'Test3',
-          'content': 'Hello this is another test',
-          'after': ['Test2'],
-        }
-      }})
-  
+  - window.is(Freeform) => $win:
+      # - |-
+      #   window.annotate({{ 
+      #     {
+      #       'kind': 'text',
+      #       'x': 100,
+      #       'y': 30,
+      #       'label': 'Test1',
+      #       'content': 'Hello this is a test'
+      #     }
+      #   }})
+      - |-
+        window.annotate({{ 
+          {
+            'kind': 'rect',
+            'x': -10,
+            'y': 117,
+            'width': 200,
+            'height': 35,
+            'label': 'Test2',
+            'content': 'Hello! I am an annotation >_<',
+            'duration': 30
+          }
+        }})
+      # - |-
+      #   window.annotate({{ 
+      #     {
+      #       'kind': 'rect',
+      #       'x': 800,
+      #       'y': 420,
+      #       'width': 300,
+      #       'height': 100,
+      #       'label': 'Test3',
+      #       'content': 'Hello this is another test',
+      #       'after': ['Test2'],
+      #     }
+      #   }})
 configs:
   options: []
   hotkey: ''
-  shortcut: false
+  shortcut: true

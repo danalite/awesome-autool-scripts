@@ -1,0 +1,23 @@
+task: Text-Input-Source-Switch
+desc: switch between input sources (US and Chinese)
+
+actions:
+  - |-
+    user.input({{ {
+      'type':'select', 
+      'title': 'Set source of monitor 1 to',
+      'options':[
+        { 'label':'DP1',   'value':15 },
+        { 'label':'DP2',   'value':16 },
+        { 'label':'HDMI1', 'value':17 },
+        { 'label':'HDMI2', 'value':18 }
+      ],  
+      'max':1,  
+      'preset':False }}}) => $select
+  - data.read({{ 15 }}) => $source
+
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false
+  start-time: ''

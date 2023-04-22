@@ -1,0 +1,9 @@
+task: File-Rename-Batch
+
+actions: 
+  # Get all selected files
+  - os.shell(Get-Selected-Files.applescript) => $selected
+
+  # Rename all selected files
+  - os.shell(source Rename-Files-Batch.sh '{{ $selected }}')
+

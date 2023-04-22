@@ -1,0 +1,21 @@
+task: sam
+actions:
+  - |-
+    user.input({{
+      {
+        'title': 'Click to select masks',
+        'content': {
+          'type': 'dynamic',
+          'label': 'Masks selected',
+          'search': 'Segmentation',
+          'params': {
+            'window': 'Preview',
+            'server': 'http://192.168.0.30:5000/upload',
+          }
+        },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $region
+configs:
+  options: []
+  shortcut: false

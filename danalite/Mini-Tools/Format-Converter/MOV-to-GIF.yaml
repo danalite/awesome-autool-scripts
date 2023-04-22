@@ -1,0 +1,40 @@
+task: Mov-to-GIF
+doc: https://www.kunxi.org/2020/08/automate-video-to-gif-conversion-in-macos/
+actions:
+  - |-
+    user.input({{ {
+      'title': 'MOV to GIF',
+      'content': {
+        'type': 'list',
+        'content': [
+          {
+            'type': 'upload',
+            'label': 'Select MOV',
+            'key': 'Files'
+          },
+          {
+            'type': 'select',
+            'label': 'Select GIF Size',
+            'key': 'Size',
+            'content': [
+              'Original',
+              '1080p',
+              '720p',
+              '480p'
+            ],
+            'max': 1
+          },
+          {
+            'type': 'number',
+            'label': 'Framerate (FPS)',
+            'key': 'Speed',
+            'default': 12
+          }
+        ]
+      },
+      'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+    } }}) => $options
+  - cmd.print({{ $options }})
+configs:
+  options: []
+  shortcut: false

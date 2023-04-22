@@ -1,0 +1,26 @@
+task: quit-windows-in-batch
+actions:
+  - >-
+    os.shell(osascript -e 'tell application "System Events" to get name of every
+    process whose visible is true') => $apps
+  - data.read({{ [ _.strip() for _ in $apps.split(',') ] }}) => $apps
+
+  - >-
+    user.input({{ {
+      'title':'Select apps to quit', 
+      'content': {
+        'type':'select',
+        'key':'apps',
+        'label':'Options',
+        'content': $apps
+      }
+    } }}) => $select
+
+  - data.read({{ $select['apps'] }}) => $target
+  - cmd.for_each({{ $target }}) => $index, $item:
+      - os.shell(osascript -e 'tell application "{{ $item }}" to quit')
+
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false

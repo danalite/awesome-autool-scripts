@@ -1,9 +1,0 @@
-task: mute-audio
-actions:
-  - os.shell(osascript -e 'set volume input volume 0')
-  - os.shell(osascript -e 'tell application "Finder" to set volume 0')
-configs:
-  options: []
-  hotkey: ''
-  shortcut: false
-  start-time: ''

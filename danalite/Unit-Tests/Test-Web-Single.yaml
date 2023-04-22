@@ -1,0 +1,13 @@
+task: test-web-single
+
+actions:
+   - web.init()
+   - web.open(https://www.google.com)
+
+   # type something in the search box
+   - web.find( //*[@name='q'] ).type(Hello World)
+
+   - cmd.sleep(1s)
+   - web.find( //*[@name='btnK'] ).click()
+
+   - web.wait()

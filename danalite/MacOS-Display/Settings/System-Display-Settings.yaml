@@ -1,0 +1,8 @@
+task: System-Display-Settings
+doc: https://sspai.com/post/33732
+actions:
+  - os.shell(open 'x-apple.systempreferences:com.apple.preference.displays')
+
+configs:
+  options: []
+  shortcut: false

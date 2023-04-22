@@ -1,0 +1,14 @@
+task: open-terminal-from-folder
+doc: https://sspai.com/post/33732
+actions:
+  - os.shell(Get-Finder-Path.applescript) => $currPath
+  - cmd.print({{ $currPath }})
+  - >-
+    os.shell(osascript -e 'tell application "System Events" to tell process
+    "Terminal"' -e 'set frontmost to true' -e 'end tell')
+  - >-
+    os.shell(osascript -e 'tell application "Terminal" to do script "cd
+    {{$currPath}}"')
+configs:
+  options: []
+  shortcut: false

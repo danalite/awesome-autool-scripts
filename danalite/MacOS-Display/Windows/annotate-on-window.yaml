@@ -1,9 +1,0 @@
-task: annotate-on-window
-actions:
-
-  - window.is(Visual Studio Code):
-      - window.annotate({{ {'action':'annotate', 'pos':[100,100], 'dim':[20,20]} }})
-
-configs:
-  options: []
-  shortcut: false

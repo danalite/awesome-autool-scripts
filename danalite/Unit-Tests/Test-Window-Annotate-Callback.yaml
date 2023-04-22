@@ -1,0 +1,32 @@
+task: annotate-window-callback
+desc: callback events for annotations
+actions:
+
+  # Show dialogs when hover event triggered
+  #    TTL: leave the event in entry after 180 seconds
+  - event.on(CUSTOM_HOVER_EVENT, {{ {'TTL':180} }}) => $e:
+    - >-
+      cmd.print({{ $e }})
+
+  # A sequence to teach people using docker
+  - window.is(Freeform):
+    # 1. Annotate a floating text on the window
+    - >-
+      window.annotate({{ 
+        {
+          'kind': 'rect',
+          'x': 100,
+          'y': 30,
+          'width': 300,
+          'height': 100,
+          'label': 'Test1',
+          'content': 'Hello this is a test'
+          'onHover': '',
+          'onClick': '',
+        }
+      }})
+
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false

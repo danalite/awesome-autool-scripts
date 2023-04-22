@@ -1,7 +1,9 @@
-task: force-shutdown
-desc: force macos to shutdown at a certain time
+task: Force-Shutdown
+desc: Force macos to shutdown without asking for confirmation
+
 actions:
-  - os.shell(force-shutdown.applescript)
+  - os.shell(Force-Shutdown.applescript)
+
 configs:
   options: []
   hotkey: ''

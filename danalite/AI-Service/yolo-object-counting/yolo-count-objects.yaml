@@ -1,0 +1,27 @@
+task: yolo-count-objects
+actions:
+  - window.is_active() => $win
+  - window.capture({{ $win }}) => $imgPath
+  - >-
+    web.http(POST, http://localhost:5111/detect/, {{ 'F':'file=@' + $imgPath }})
+    => $resp
+  - data.read({{ $resp['objects'] }}) => $objects
+  - window.is({{ $win[owner] }}):
+      - cmd.for_each({{ $objects }}) => $index, $item:
+          - data.read({{ $item[box] }}) => $x, $y, $w, $h
+          - |-
+            window.annotate({{ 
+              {
+                'kind':'rect',
+                'label':$index,
+                'x': $x,
+                'y': $y,
+                'width': $w,
+                'height': $h,
+                'content': $index,
+              } 
+             }})
+configs:
+  options: []
+  hotkey: Meta+C
+  shortcut: false

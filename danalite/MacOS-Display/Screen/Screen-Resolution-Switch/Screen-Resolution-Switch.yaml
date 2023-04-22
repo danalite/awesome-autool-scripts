@@ -1,0 +1,31 @@
+task: Screen-Resolution-Switch
+desc: switch the resolution of monitor between 1920x1080 and 2560x1440
+
+actions:
+  - |-
+    user.input({{ {
+      'title': 'Select screen resolution',
+      'content': {
+          'type': 'select',
+          'key': 'resolution',
+          'label': 'Options',
+          'content': [
+            { 'label': '1440 x 900',    'value': '1440 900' },
+            { 'label': '1920 x 1080',   'value': '1920 1080' },
+            { 'label': '2560 x 1440',   'value': '2560 1440' }
+          ],
+          'instantQuit': True,
+          'max': 1
+       },
+    } }}) => $select
+
+  - data.read({{ $select['resolution'][0] }}) => $source
+
+  - cmd.print(setgetscreenres {{ $source }})
+  # - os.shell(setgetscreenres {{ $source }})
+
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false
+  start-time: ''

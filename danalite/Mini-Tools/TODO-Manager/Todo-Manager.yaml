@@ -1,0 +1,48 @@
+task: todo-manager
+actions:
+  - os.shell(source ./tasks-parser.sh) => $pending
+  - |-
+    user.input({{
+      {
+        'title': 'TODO Manager',
+        'content': {
+          'type': 'tabs',
+          'content': [
+            {
+              'tab': 'Ongoing',
+              'type': 'text',
+              'key': 'pending',
+              'label': 'TODOs (+project @context)',
+              'placeholder': 'E.g., Buy Milk +Grocery',
+              'advanced': {
+                'dynamic': True,
+                'default': eval($pending)
+              }
+            },
+            {
+              'type': 'dynamic',
+              'tab': 'Completed',
+              'label': 'Search finished TODOs',
+              'key': 'completed',
+              'search': 'Command',
+              'params' : {
+                'command': ''
+              }
+            },
+          ]
+        },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $todo
+  - data.read( {{ $todo['pending']['options'] }} ) => $all
+  - data.read( {{ $todo['pending']['checked'] }} ) => $checked
+  - data.read( {{ [] }}) => $set
+  - cmd.for_each( {{ $all }} ) => $index, $item:
+      - cmd.if( {{ $item not in $checked }} ):
+          - data.read({{ $set.__add__([$item]) }}) => $set
+  - os.shell( echo "{{ '\n'.join($set) }}" > ./configs/todo.txt )
+  - cmd.for_each( {{ $checked }} ) => $index, $item:
+      - os.shell(echo "x `date +%Y-%m-%d` {{$item}}" >> ./configs/done.txt)
+configs:
+  options: []
+  shortcut: true
