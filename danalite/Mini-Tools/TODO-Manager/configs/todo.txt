@@ -1,2 +1,1 @@
-read SAMO paper
-test FT on A6000
+Start writing autool doc

@@ -4,13 +4,15 @@
     "icon": "https://developer.apple.com/design/human-interface-guidelines/foundations/app-icons/images/app-icon-realistic-materials_2x.png",
     
     "tasks": [
-        "File-Searcher.yaml",
+        "App-Launcher/App-Launcher.yaml",
         "TODO-Manager/Todo-Manager.yaml",
         "Image-Segmentation/Image-Segmentation.yaml",
+
         "Format-Converter/MOV-to-GIF.yaml",
         "Password-Manager/Password-Manager.yaml",
         "Daily-Vocabulary/Daily-Vocabulary.yaml",
+
         "Amazon-Deals/Amazon-Deals.yaml",
-        "Watch-Tiktok-Videos.yaml"
+        "Watch-Tiktok-Videos/Watch-Tiktok-Videos.yaml"
     ]
 }

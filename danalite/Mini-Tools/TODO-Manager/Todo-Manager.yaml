@@ -45,4 +45,4 @@ actions:
       - os.shell(echo "x `date +%Y-%m-%d` {{$item}}" >> ./configs/done.txt)
 configs:
   options: []
-  shortcut: true
+  shortcut: false

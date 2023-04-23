@@ -24,4 +24,4 @@ actions:
   - os.shell(open {{ $fileName }})
 configs:
   options: []
-  shortcut: true
+  shortcut: false

@@ -1,97 +1,21 @@
 task: test-user-notify
 desc: show a notification to the user
-
 actions:
-  # - web.http(GET, https://tucdn.wpon.cn/api-girl/index.php?wpon=json) => $resp
-  # - data.read({{ $resp[mp4] }}) => $url
-
-  # - web.http(GET, https://api-popcord.vercel.app/img/nsfw?type=video) => $resp
-  # - data.read({{ $resp[url] }}) => $url
-
-  # https://github.com/Joel2B/XVideos-PornHub-RedTube-API
-  - cmd.print(https://cdn.discordapp.com/attachments/1088578764465786962/1099372979823063210/123.mp4) => $url
-
-  # 1. Basic notification
   - >-
-    user.notify({{
-      {
-        'title': 'Test Notification',
-        'content': 'Hello this is a test',
-        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png',
-        'duration': 10
-      }
-    }})
-  
-  # 2. Notification with multiple contents
-  - >-
-    user.notify({{
-      {
-        'title': 'Test Notification',
-        'content': {
-          'type': 'list',
-          'content': [
-            {
-              'type': 'text',
-              'label': 'Test1, click me to copy',
-              'content': 'Hello this is a test'
-            },
-            {
-              'type': 'audio',
-              'source': 'https://dds.dui.ai/runtime/v1/synthesize?voiceId=ppangf_csn&text=怎么办我的心好痛&speed=1&volume=50&audioType=wav',
-              'label': 'Test1, click me to copy'
-            },
-            {
-              'type': 'video',
-              'source': $url,
-              'label': 'Test1, click me to copy'
-            },
-          ],
-        },
-        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
-      }
-    }})
-
-  # 3. Notification with other types
-  - >-
-    user.notify({{
-      {
-        'title': 'Test Notification',
-        'content': {
-          'type': 'list',
-          'content': [
-            { 
-              'type': 'text',
-              'label': 'Test1, click me to copy',
-              'content': 'Hello this is a test'
-            },
-            {
-              'type': 'carousel',
-              'content': 
-                [
-                  "https://i.pinimg.com/originals/3e/e7/45/3ee7459cfdbce3cce499d2fd0583f5a9.jpg",
-                  "https://i.pinimg.com/originals/3e/e7/45/3ee7459cfdbce3cce499d2fd0583f5a9.jpg",
-                  "https://i.pinimg.com/originals/3e/e7/45/3ee7459cfdbce3cce499d2fd0583f5a9.jpg",
-                ]
-            }
-          ]
-        },
-        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
-      }
-    }})
-
-  # 4. Notification with tabs
-  - >-
+    cmd.print(https://cdn.discordapp.com/attachments/1088578764465786962/1099372979823063210/123.mp4)
+    => $url
+  - |-
     user.notify({{
       {
         'title': 'Test Notification',
         'content': {
           'type': 'tabs',
           'content': [
-            { 
-              'type': 'text',
+            {
               'tab': 'Tab1',
-              'label': 'Test1, click me to copy',
-              'content': 'Hello this is a test'
+              'type': 'video',
+              'source': $url,
+              'label': 'Test1, click me to copy'
             },
             {
               'type': 'carousel',
@@ -108,3 +32,6 @@ actions:
         'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
       }
     }})
+configs:
+  options: []
+  shortcut: true

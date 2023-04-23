@@ -4,7 +4,7 @@
 
 
 ```bash
-export TARGET=Untitled
+export TARGET=demo-media
 
 docker run --rm -v $(pwd):/workdir -w /workdir  jrottenberg/ffmpeg:4.1-alpine -i "$TARGET.mov" -vf "fps=12,palettegen" -y palette.png
 

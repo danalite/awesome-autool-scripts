@@ -1,21 +1,8 @@
 task: annotate-window
 desc: show annotation on a window, which disappears after a while
 actions:
-
-  # open Freeform window
   - os.shell(open -a Freeform)
-
   - window.is(Freeform) => $win:
-      # - |-
-      #   window.annotate({{ 
-      #     {
-      #       'kind': 'text',
-      #       'x': 100,
-      #       'y': 30,
-      #       'label': 'Test1',
-      #       'content': 'Hello this is a test'
-      #     }
-      #   }})
       - |-
         window.annotate({{ 
           {
@@ -29,20 +16,7 @@ actions:
             'duration': 30
           }
         }})
-      # - |-
-      #   window.annotate({{ 
-      #     {
-      #       'kind': 'rect',
-      #       'x': 800,
-      #       'y': 420,
-      #       'width': 300,
-      #       'height': 100,
-      #       'label': 'Test3',
-      #       'content': 'Hello this is another test',
-      #       'after': ['Test2'],
-      #     }
-      #   }})
 configs:
   options: []
   hotkey: ''
-  shortcut: true
+  shortcut: false

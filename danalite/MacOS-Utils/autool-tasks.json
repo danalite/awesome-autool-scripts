@@ -9,6 +9,7 @@
         "Media/Audio-Recorder.yaml",
         "Media/Screenshot-Save.yaml",
 
+        "Settings/Text-Input-Source-Switch/Text-Input-Source-Switch.yaml",
         "Settings/Force-Shutdown/Force-Shutdown.yaml",
         "Settings/Audio-Mute.yaml",
         "Settings/Manage-Login-Items.yaml",

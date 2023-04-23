@@ -4,4 +4,4 @@ actions:
   - os.shell(Move-Front-Window-To-Another-Display.applescript)
 configs:
   options: []
-  shortcut: true
+  shortcut: false
