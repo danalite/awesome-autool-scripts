@@ -1,0 +1,45 @@
+task: ask-for-permission
+actions:
+  - data.read({{ ['ID 253776', 'URGENT'] }}) => $words
+  - cmd.print(System went offline. Need IT support to fix ASAP) => $sentence
+  - |-
+    user.input({{ {
+      'title': 'Permission Request', 
+      'content': {
+        'type': 'tabs',
+        'content': [
+          {
+            'type': 'list',
+            'tab': 'REQ #1',
+            'content': [
+              {
+                'type': 'text',
+                'label': 'Case ID',
+                'content': str($words)
+              },
+              {
+                'type': 'text',
+                'label': 'Details',
+                'content': $sentence
+              },
+              {
+                'type': 'select',
+                'label': 'Approve?',
+                'key': 'feelingL1',
+                'content': ['Approve', 'Reject', 'Escalate'],
+                'max': 1
+              }
+            ]
+          },
+          {
+            'type': 'text',
+            'tab': 'REQ #2',
+            'label': 'Sentence',
+            'content': $sentence
+          }
+        ]
+      },
+    } }})
+configs:
+  options: []
+  shortcut: true
