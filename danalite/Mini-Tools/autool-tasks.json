@@ -6,6 +6,8 @@
     "tasks": [
         "App-Launcher/App-Launcher.yaml",
         "TODO-Manager/Todo-Manager.yaml",
+
+        "Summarize-PDFs/Summarize-PDFs.yaml",
         "Image-Segmentation/Image-Segmentation.yaml",
 
         "Format-Converter/MOV-to-GIF.yaml",

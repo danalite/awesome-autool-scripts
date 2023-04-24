@@ -1,0 +1,29 @@
+task: Summarize-PDFs
+desc: Summarize the content of PDFs to a few sentences
+actions:
+  - |-
+    user.input({{
+      {
+        'title': 'Select PDFs to summarize',
+        'content': {
+          'type': 'list',
+          'content': [
+            {
+              'type': 'dynamic',
+              'label': 'Select PDFs from workspace',
+              'key': 'test3',
+              'search': 'File',
+              'params' : {
+                'location': '~/Desktop/PDFs',
+                'extensions': ['png'],
+                'size': [0, 1000]
+              }
+            }
+          ]
+        },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret
+configs:
+  options: []
+  shortcut: true
