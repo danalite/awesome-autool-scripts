@@ -42,4 +42,4 @@ actions:
     } }})
 configs:
   options: []
-  shortcut: true
+  shortcut: false

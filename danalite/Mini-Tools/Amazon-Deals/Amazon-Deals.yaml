@@ -9,19 +9,19 @@ actions:
         'imagePreview': True,
         'content': [
           {
-            'label': 'PlayStation PS5 Console. God of War Ragnarök Bundle',
-            'src': 'https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/61SUJDrCTLL._AC_UF1000,1000_QL80_.jpg',
-            'description': '249.99 (499.99 | 50% OFF)'
+            'label': 'NVIDIA RTX 4080 GPU, 16GB GDDR6X',
+            'src': 'https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71m9FJCubXL.jpg',
+            'description': '€1499.99  (-399)'
           },
           {
-            'label': 'NVIDIA GeForce RTX 4080 16GB GDDR6X Graphics Card',
-            'src': 'https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71m9FJCubXL.jpg',
-            'description': '749.99 (1499.99 | 50% OFF)'
-          }
+            'label': 'Jellycat Amuseables Cloud Plush, Medium',
+            'src': 'https://images-na.ssl-images-amazon.com/images/I/71CDpZhrQJL._AC_UL116_SR116,116_.jpg',
+            'description': '€9.9  (-29)'
+          },
         ]
       }, 
       'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
     } }})
 configs:
   options: []
-  shortcut: false
+  shortcut: true
