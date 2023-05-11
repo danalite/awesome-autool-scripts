@@ -1,0 +1,39 @@
+task: test-dynamic-previews
+desc: get dynamically changing search results
+
+actions:
+  # search: determines the listed outputs in search bar
+  # returned layout depends on the server
+  - >-
+    user.input({{
+      {
+        'title': 'Stable diffusion v2.1',
+        'content': {
+            'type': 'list',
+            'content': [
+              {
+                'type': 'text',
+                'label': 'Prompt',
+                'key': 'prompt',
+              },
+              {
+                'type': 'dynamic',
+                'label': 'Select styles',
+                'key': 'target',
+                "options": {
+                  "search": "https://",
+                  "params": {
+                    "location": "~/Desktop/PDFs",
+                    "extensions": ["png"],
+                    "size": [0, 1000]
+                  }
+                },
+                "onSelect": {
+                  "search": "https://"
+                }
+              }
+            ]
+          },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret

@@ -21,8 +21,8 @@ actions:
 
   - data.read({{ $select['resolution'][0] }}) => $source
 
-  - cmd.print(setgetscreenres {{ $source }})
-  # - os.shell(setgetscreenres {{ $source }})
+  # - cmd.print(setgetscreenres {{ $source }})
+  - os.shell(setgetscreenres {{ $source }})
 
 configs:
   options: []

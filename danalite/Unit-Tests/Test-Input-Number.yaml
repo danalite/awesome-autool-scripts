@@ -1,0 +1,20 @@
+task: test-input-number
+
+actions:
+  - |-
+    user.input({{ {
+      'title': 'Input a number',
+      'content': {
+            'type': 'number',
+            'label': 'Framerate (FPS)',
+            'key': 'Speed',
+            'default': 12
+          },
+      'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+    } }}) => $options
+
+  - cmd.print({{ $options }})
+  
+configs:
+  options: []
+  shortcut: false

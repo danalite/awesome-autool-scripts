@@ -9,11 +9,12 @@ actions:
           'type': 'tabs',
           'content': [
             {
-              'tab': 'Ongoing',
+              'tab': 'Pending',
+              
               'type': 'text',
               'key': 'pending',
-              'label': 'TODOs (+project @context)',
-              'placeholder': 'E.g., Buy Milk +Grocery',
+              'label': 'Edit TODOs',
+              'placeholder': 'E.g., Buy Milk +grocery',
               'advanced': {
                 'dynamic': True,
                 'default': eval($pending)

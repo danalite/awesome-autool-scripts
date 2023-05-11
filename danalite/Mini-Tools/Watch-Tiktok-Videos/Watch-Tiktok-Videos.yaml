@@ -13,7 +13,7 @@ actions:
   # - data.read({{ $resp[url] }}) => $url2
 
   - |-
-    user.notify({{
+    user.input({{
       {
         'title': 'Tiktok Videos',
         'content': {

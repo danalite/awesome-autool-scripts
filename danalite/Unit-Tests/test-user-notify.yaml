@@ -5,7 +5,7 @@ actions:
     cmd.print(https://cdn.discordapp.com/attachments/1088578764465786962/1099372979823063210/123.mp4)
     => $url
   - |-
-    user.notify({{
+    user.input({{
       {
         'title': 'Test Notification',
         'content': {
@@ -18,8 +18,10 @@ actions:
               'label': 'Test1, click me to copy'
             },
             {
-              'type': 'carousel',
+              'type': 'select',
               'tab': 'Tab2',
+              'label': 'Test check images',
+              'imagePreview': True,
               'content': 
                 [
                   "https://i.pinimg.com/originals/3e/e7/45/3ee7459cfdbce3cce499d2fd0583f5a9.jpg",

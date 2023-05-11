@@ -6,9 +6,9 @@ actions:
         'title': 'Quick File Launcher',
         'content': {
           'type': 'dynamic',
-          'label': 'Search files from workspace',
+          'label': 'Search and click',
           'key': 'openFileName',
-          'search': 'File',
+          'search': 'Files',
           'params' : {
             'location': '~/Desktop',
             'extensions': ['png'],
@@ -20,8 +20,15 @@ actions:
         'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
       }
     }}) => $ret
-  - data.read({{ $ret['openFileName']['value'] }}) => $fileName
-  - os.shell(open {{ $fileName }})
+
+  - data.read({{ $ret['openFileName'] }}) => $fileName
+
+  # MacOS run 'open' command to open file
+  - cmd.if({{ $env[PLATFORM] == 'darwin' }}):
+    - os.shell(open {{ $fileName }})
+
+
+
 configs:
   options: []
   shortcut: false

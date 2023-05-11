@@ -16,7 +16,8 @@ actions:
           {
             'label': 'Jellycat Amuseables Cloud Plush, Medium',
             'src': 'https://images-na.ssl-images-amazon.com/images/I/71CDpZhrQJL._AC_UL116_SR116,116_.jpg',
-            'description': '€9.9  (-29)'
+            'description': '€9.9  (-29)',
+            'link': 'https://www.amazon.com/Jellycat-Amuseable-Cloud-Plush-Huge-inches/dp/B081X2BZNP/ref=sr_1_1?crid=2T32AUREBA6BH&keywords=jellycat+cloud&qid=1682816611&sprefix=jellycat+cloud%2Caps%2C138&sr=8-1&ufe=app_do%3Aamzn1.fos.006c50ae-5d4c-4777-9bc0-4513d670b6bc'
           },
         ]
       }, 
@@ -24,4 +25,4 @@ actions:
     } }})
 configs:
   options: []
-  shortcut: true
+  shortcut: false

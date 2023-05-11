@@ -1,6 +1,5 @@
 task: Screen-Source-Switch
 desc: switch the input source of monitor between DP1 and HDMI2
-
 actions:
   - |-
     user.input({{ {
@@ -19,14 +18,10 @@ actions:
           'max': 1
        },
     } }}) => $select
-
   - data.read({{ $select['entry'][0] }}) => $source
-
   - cmd.print(ddcctl -d 1 -i {{ $source }})
-  # - os.shell(ddcctl -d 1 -i {{ $source }})
-
 configs:
   options: []
   hotkey: ''
-  shortcut: false
+  shortcut: true
   start-time: ''

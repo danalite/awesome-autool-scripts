@@ -20,7 +20,7 @@ actions:
               'type': 'dynamic',
               'label': 'Select files from workspace',
               'key': 'test3',
-              'search': 'File',
+              'search': 'Files',
               'params' : {
                 'location': '~/Desktop',
                 'extensions': ['png'],

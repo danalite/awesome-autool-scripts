@@ -1,0 +1,22 @@
+task: test-dynamic-previews
+desc: get dynamically changing search results
+
+actions:
+  # search: determines the listed outputs in search bar
+  # returned layout depends on the server
+  - >-
+    user.input({{
+      {
+        'title': 'GPT3.5',
+        'content':
+              {
+                'type': 'interactive',
+                'label': 'Ask a question',
+                'params' : {
+                  "showType": "chat",
+                  'server': 'https://192.168.0.30:5555/generate_images?',
+                }
+              },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret

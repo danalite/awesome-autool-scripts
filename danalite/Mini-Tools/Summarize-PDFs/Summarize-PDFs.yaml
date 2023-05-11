@@ -12,7 +12,7 @@ actions:
               'type': 'dynamic',
               'label': 'Select PDFs from workspace',
               'key': 'test3',
-              'search': 'File',
+              'search': 'Files',
               'params' : {
                 'location': '~/Desktop/PDFs',
                 'extensions': ['png'],

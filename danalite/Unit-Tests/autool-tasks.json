@@ -4,6 +4,13 @@
     "icon": "https://github.com/danalites/autool/blob/main/imgs/logo.png?raw=true",
 
     "tasks": [
+        
+        "Test-Input-Number.yaml",
+
+        "Test-Chatbot.yaml",
+        "Test-Search-Web-Images.yaml",
+        "Test-Search-File-Summary.yaml",
+
         "Test-User-Input-Webview.yaml",
         "Test-User-Input-Search.yaml",
         "Test-User-Input-Select.yaml",

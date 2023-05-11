@@ -19,3 +19,4 @@ actions:
 configs:
   options: []
   shortcut: false
+  hotkey: ''

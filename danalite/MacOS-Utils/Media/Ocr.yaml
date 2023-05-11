@@ -4,12 +4,13 @@ actions:
   - os.shell(screencapture -c -i -x)
   
   # Save the screenshot to /tmp/screencapture.png
+  - data.read()
 
   - os.shell(sips -s format png /tmp/screencapture.png --out /tmp/screencapture.png)
   
   # Run OCR on the screenshot
 
-  # save result to clipboard
+  # Save result to clipboard
   
 
 

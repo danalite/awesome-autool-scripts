@@ -9,7 +9,7 @@ actions:
       cmd.print({{ $e }})
 
   # A sequence to teach people using docker
-  - window.is(Freeform):
+  - window.is(Docker Desktop):
     # 1. Annotate a floating text on the window
     - >-
       window.annotate({{ 
