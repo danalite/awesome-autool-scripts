@@ -1,28 +1,48 @@
 ---
 task: amazon-login
-inputs:  
-  email: YOUR_EMAIL
-  password: $env[SAFE_AMAZON_PASSWORD]
 
 actions:
+  - cmd.sleep(10s)
+  - web.init( {{ {'size':[300,300,960,840]} }})
   - web.open(https://www.amazon.com/gp/css/order-history)
 
   # function to type in account password
   - cmd.fn(ENTER_PASSWORD):
-      - web.find( //*[@id="ap_password"] ).type($inputs[password])
+      - web.find( //*[@id="ap_password"] ).type(brooklyn)
       - web.find( //*[@id="signInSubmit"] ).click()
 
-  - web.find( //div[contains(., "Your Orders")] ) => $is_logged_in
-  - cmd.if({{ not $is_logged_in }}):
-      - web.find( //*[@id="ap_password"] ) => $is_email_filled
-      - cmd.if({{ $is_email_filled }}):
-          - cmd.call(ENTER_PASSWORD)
+  # check if it is already logged in
+#   - web.find( //div[contains(., "Your Orders")] ) => $is_logged_in
+
+#   - cmd.if({{ not $is_logged_in }}):
+#       - web.find( //*[@id="ap_password"] ) => $is_email_filled
+#       - cmd.if({{ $is_email_filled }}):
+#           - cmd.call(ENTER_PASSWORD)
       
-      # Login to amazon account
-      - cmd.if({{ not $is_email_filled }}):
-          - web.open( https://www.amazon.com/ )
-          - web.find( \#nav-signin-tooltip > a.nav-action-button ).click()
-          - web.find( //*[@id="ap_email"] ).type($inputs[email])
-          - web.find( //*[@id="continue"] ).click()
-          - cmd.call(ENTER_PASSWORD)
+#       # Login to amazon account
+#       - cmd.if({{ not $is_email_filled }}):
+#           - web.open( https://www.amazon.com/ )
+#           - web.find( //*[@id="nav-link-accountList"]/span ).click()
+          
+#           - web.find( //*[@id="ap_email"] ).type(EMAIL)
+#           - web.find( //*[@id="continue"] ).click()
+#           - cmd.call(ENTER_PASSWORD)
+    
+#   - web.open( https://www.amazon.com/ )
+#   - web.find( //*[@id="nav-link-accountList"]/span ).click()
+
+  - web.find( //*[@id="ap_email"] ).type(EMAIL)
+  
+  - web.find( //*[@id="continue"] ).click()
+  - web.find( //*[@id="ap_password"] ).type(PWD)
+
+  - web.find( //*[@id="signInSubmit"] ).click()
+
+  # GOTO checkout page
+  - web.open(https://www.amazon.com/Jellycat-Amuseables-Cloud-Medium-inches/dp/B07GPFJL3P/ref=sr_1_2?crid=1MQZVM4FD7JEM&keywords=jellycat+cloud&qid=1682994980&sprefix=jellycat+cloud%2Caps%2C139&sr=8-2)
+
+  - web.find(//*[@id="buy-now-button"]).click()
+
+  - web.find( //*[@id="primepanel_nothanks-truespc"] ).click()
+  - web.wait()
     

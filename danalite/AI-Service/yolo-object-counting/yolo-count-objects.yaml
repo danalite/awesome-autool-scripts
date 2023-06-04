@@ -23,5 +23,5 @@ actions:
              }})
 configs:
   options: []
-  hotkey: Meta+C
+  hotkey: Meta+F
   shortcut: false

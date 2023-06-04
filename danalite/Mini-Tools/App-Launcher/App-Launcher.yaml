@@ -8,11 +8,13 @@ actions:
           'type': 'dynamic',
           'label': 'Search and click',
           'key': 'openFileName',
-          'search': 'Files',
-          'params' : {
-            'location': '~/Desktop',
-            'extensions': ['png'],
-            'size': [0, 1000]
+          "options": {
+            "search": "Files",
+            "params": {
+              "location": "~/Desktop/",
+              "extensions": ["png"],
+              "size": [0, 1000]
+            }
           },
           'instantQuit': True,
           'max': 1
@@ -20,15 +22,10 @@ actions:
         'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
       }
     }}) => $ret
-
   - data.read({{ $ret['openFileName'] }}) => $fileName
-
-  # MacOS run 'open' command to open file
   - cmd.if({{ $env[PLATFORM] == 'darwin' }}):
-    - os.shell(open {{ $fileName }})
-
-
-
+      - cmd.if({{ $fileName } }}):
+          - os.shell(open {{ $fileName }})
 configs:
   options: []
   shortcut: false

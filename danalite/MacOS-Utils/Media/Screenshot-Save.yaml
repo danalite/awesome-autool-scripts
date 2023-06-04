@@ -1,27 +1,20 @@
-task: screenshot
+task: Screenshot-Save
 actions:
-
-  - os.shell(screencapture -c -i -x)
-  # Let user select a name and location for the screenshot
-  
   - >-
     user.input({{ {
       'type':'select', 
       'title': 'Where to save the screenshot?',
-      'options':[
+      'options': [
         { 'label':'Full Screen', 'value':1 },
-        { 'label':'Selected Area', 'value':2 },
         { 'label':'Window', 'value':3 },
-        { 'label':'Desktop', 'value':4 }
+        { 'label':'Select Area', 'value':2 }
       ],  
       'max':1,  
       'preset':False }}}) => $select
 
-
-  # - cmd.print(SS_{{ $env[MONTH] }}_{{ $env[DAY] }}) => $name
-  - os.shell(screencapture -c -i -x {{ $env[HOME] }}/Desktop/{{ $name }}.png)
+  - os.shell(screencapture -i -x {{ $env[HOME] }}/Desktop/{{ $name }}.png)
 
 configs:
   options: []
   hotkey: ''
-  shortcut: false
+  shortcut: true

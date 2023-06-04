@@ -3,8 +3,16 @@ actions:
   - >-
     os.shell(osascript -e 'tell application "QuickTime Player" to new screen
     recording')
-  - key.wait(Escape)
-  - os.shell(stop-record.applescript)
+
+  # Wait for the key press to stop the recording
+  - event.on(__KEY_PRESSED__, {{ {'keys':['Escape']} }}) => $r:
+    - os.shell(stop-record.applescript)
+  
+  # To dormant state, waiting for the key press
+  #   - event.wait will not exit until the event is triggered that many times
+  #   - only valid when local task has events registered 
+  - event.wait( {{ {'waiting':'__KEY_PRESSED__','limit':1} }})
+
 configs:
   options: []
   hotkey: ''

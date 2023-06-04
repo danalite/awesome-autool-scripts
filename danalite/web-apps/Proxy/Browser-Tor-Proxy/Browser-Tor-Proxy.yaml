@@ -5,4 +5,4 @@ actions:
   - web.wait()
 configs:
   options: []
-  shortcut: false
+  shortcut: true

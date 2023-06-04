@@ -1,0 +1,10 @@
+task: open-terminal-from-folder
+doc: https://sspai.com/post/33732
+actions:
+  - os.shell(Get-Finder-Path.applescript) => $currPath
+  - cmd.print({{ $currPath }})
+  - os.shell(code {{$currPath}})
+
+configs:
+  options: []
+  shortcut: true

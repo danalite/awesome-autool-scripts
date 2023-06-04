@@ -4,6 +4,7 @@ actions:
     user.input({{ {'type':'text', 'options':['Text to convert'] 'preset':['Hello
     world']} }}) => $target
   - user.notify({{ 'Converting text to audio...' }})
+  
 configs:
   hotkey: ''
   options: []

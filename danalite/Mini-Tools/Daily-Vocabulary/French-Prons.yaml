@@ -1,0 +1,79 @@
+task: french-vocab-nouns
+actions:
+  # Init conn to SQLite database
+  - db.init('sqlite', 'french.db') => $db
+
+  # Get new vocab to prompt to user
+  - data.read({{ [] }}) => $new
+  
+  - cmd.while( {{ len($words) < 10 }} ):
+    - db.sql(, ) => $words
+
+    # SQL to search the work as key
+    - db.sql($word) => $resp
+
+    #  Add new word not present before
+    - cmd.if($resp == None):
+      - data.read({{ $new.__add__($) }})
+
+    # Add old word that is longer than threshold
+    cmd.if($resp == None):
+      - data.read({{ $new.__add__($) }})
+
+  # Call GPT API to generate a sentence
+  - cmd.print(Many people abandon entrepreneurship due to fear of failure) => $sentence
+
+  # Call TTs API to generate a pronunciation
+  - cmd.print(Many people abandon entrepreneurship due to fear of failure) => $pron
+
+  # Prompt user to input
+  - |-
+    user.input({{ {
+      'title': 'Daily Vocabulary', 
+      'content': {
+        'type': 'tabs',
+        'content': [
+          {
+            'type': 'list',
+            'tab': 'Word List 1',
+            'content': [
+              {
+                'type': 'text',
+                'label': 'Words',
+                'content': str($words)
+              },
+              {
+                'type': 'text',
+                'label': 'Example sentence',
+                'content': $sentence
+              },
+              {
+                'type': 'audio',
+                'source': 'https://dds.dui.ai/runtime/v1/synthesize?voiceId=ppangf_csn&text=怎么办我的心好痛&speed=1&volume=50&audioType=wav',
+                'label': 'Test1, click me to copy'                
+              },
+              {
+                'type': 'select',
+                'label': 'How do you feel?',
+                'key': 'feelingL1',
+                'content': ['Good', 'Medium', 'Bad'],
+                'max': 1
+              }
+            ]
+          },
+          {
+            'type': 'text',
+            'tab': 'Word List 2',
+            'label': 'Sentence',
+            'content': $sentence
+          }
+        ]
+      },
+    } }})
+
+  # Save user input to database
+  - db.sql(, ) => $resp
+
+configs:
+  options: []
+  shortcut: false

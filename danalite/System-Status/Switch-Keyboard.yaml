@@ -1,0 +1,29 @@
+task: auto-switch-keyboard-input
+desc: listen to active window change, and switch keyboard input accordingly
+
+doc: https://inputsource.pro/
+deps:
+  - https://github.com/minoki/InputSourceSelector
+actions:
+  - event.on(__ACTIVE_WINDOW_CHANGED__) => $win:
+    - >-
+      db.write({{ 
+        {
+          'target': 'active_window.txt',
+          'key': $win,
+          'mode': 'a'
+          'value'
+        }
+      }})
+    - cmd.if({{ $app in ['WeChat'] }}):
+      - os.shell(InputSourceSelector select com.apple.inputmethod.SCIM.ITABC)
+
+    - cmd.if({{ $app in ['Visual Studio Code', 'Slack'] }}):
+      - os.shell(InputSourceSelector select com.apple.keylayout.US)
+  
+  - event.wait()
+
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false

@@ -10,14 +10,16 @@ actions:
           'content': [
             {
               'type': 'dynamic',
-              'label': 'Select PDFs from workspace',
-              'key': 'test3',
-              'search': 'Files',
-              'params' : {
-                'location': '~/Desktop/PDFs',
-                'extensions': ['png'],
-                'size': [0, 1000]
-              }
+              'label': 'Search and click',
+              'key': 'openFileName',
+              "options": {
+                "search": "Files",
+                "params": {
+                  "location": "~/Desktop/PDFs",
+                  "extensions": ["pdf"],
+                  "size": [0, 1000]
+                }
+              },
             }
           ]
         },

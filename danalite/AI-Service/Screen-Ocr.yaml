@@ -1,0 +1,14 @@
+task: ocr-screenshot
+configs:
+  hotkey: ''
+  options: []
+  start-time: ''
+actions:
+  - cmd.print({{ $env[HOME] }}/Desktop/tempOCR.png) => $temp
+
+  # https://ss64.com/osx/screencapture.html
+  # 
+  - os.shell(screencapture -i -x {{ $temp }})
+
+  - window.ocr({{ $temp }}) => $text
+  - user.notify(OCR result, $text, {{ {'timeout':10} }})

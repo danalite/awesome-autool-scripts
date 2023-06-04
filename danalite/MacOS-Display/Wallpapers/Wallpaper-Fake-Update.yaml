@@ -1,6 +1,5 @@
 task: Wallpaper-Fake-Update
 desc: goto fake update website and enter full screen mode
-
 configs:
   op-interval: 0
   options: []

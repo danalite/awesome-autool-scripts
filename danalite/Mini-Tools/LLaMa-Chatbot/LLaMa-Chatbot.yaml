@@ -1,0 +1,20 @@
+task: deepl-translator
+desc: test case using LLaMa
+
+actions:
+  - >-
+    user.input({{
+      {
+        'title': '中文GPT (LLaMA-7B LoRa)',
+        'content':
+              {
+                'type': 'interactive',
+                'key': 'deepl',
+                'params' : {
+                  'server': 'https://localhost:8765',
+                  'history': [ '我是LLaMA 机器赛亚人，你是个什么东西' ],
+                }
+              },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret

@@ -6,7 +6,9 @@
     "tasks": [
         "App-Launcher/App-Launcher.yaml",
         "TODO-Manager/Todo-Manager.yaml",
+        "DeepL-Translator/DeepL-Translator.yaml",
 
+        "LLaMa-Chatbot/LLaMa-Chatbot.yaml",
         "Summarize-PDFs/Summarize-PDFs.yaml",
         "Ask-For-Permission/Ask-For-Permission.yaml",
         "Image-Segmentation/Image-Segmentation.yaml",

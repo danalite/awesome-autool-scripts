@@ -1,0 +1,40 @@
+task: deepl-translator
+actions:
+  - data.read( {{ $env[CLIPBOARD] }} ) => $c
+  - data.read( {{ $c['value'] }} ) => $text
+  - |-
+    user.input({{
+      {
+        'title': 'DeepL 英文翻译 API',
+        'session': 'Wxta3NhO2RzYWRzYWZzYWQ=',
+        'content':
+              {
+                'type': 'interactive',
+                'key': 'history',
+                'params' : {
+                  'server': 'http://127.0.0.1:1188/translate',
+                  'history': ['开始翻译', $text],
+                  'data': {
+                    'QUERY_KEY': 'text',
+                    'target_lang': 'ZH',
+                    'source_lang': 'EN'
+                  },
+                  'method': 'POST',
+                  'response': ['data']
+                }
+              },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret
+    
+  - |-
+    db.write({{
+      {
+        'target': 'history.txt',
+        'content': $ret['history'],
+        'mode': 'a'
+      }
+    }})
+configs:
+  options: []
+  shortcut: false

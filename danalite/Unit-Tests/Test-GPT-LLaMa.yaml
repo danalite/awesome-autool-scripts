@@ -1,17 +1,16 @@
-task: test-dynamic-previews
-desc: get dynamically changing search results
+task: test-gpt-llama
+desc: test case using Bentso (微调LLaMa中医GPT模型)
 actions:
   - |-
     user.input({{
       {
-        'title': 'GPT3.5',
+        'title': '本草 (LLaMA-6B)',
         'content':
               {
                 'type': 'interactive',
-                'label': 'Ask a question',
                 'params' : {
-                  'server': 'wss://192.168.0.30:5555',
-                  'history': ['What is the meaning of life?'],
+                  'server': 'https://192.168.0.30:5555/generate_images?',
+                  'history': ['我是LLAMA-7B 机器赛亚人，你是个什么东西？']
                 }
               },
         'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'

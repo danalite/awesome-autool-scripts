@@ -32,12 +32,12 @@ actions:
       }
     }}) => $answer
   - data.read({{ $answer[wallpaper] }}) => $selected
-  - cmd.if({{ len($selected) > 0 }}:
+  - cmd.if({{ $selected }}:
       - web.http(DOWNLOAD, {{ $selected[0][value] }}) => $img
       - >-
         os.shell(osascript -e 'tell application "System Events" to tell every
         desktop to set picture to "{{ $img }}"')
-  - cmd.if({{ len($selected) == 0 }}:
+  - cmd.if({{ not $selected }}:
       - >-
         os.shell(osascript -e 'tell application "System Events" to tell every
         desktop to set picture to "NULL"')

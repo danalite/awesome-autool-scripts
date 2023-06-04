@@ -5,9 +5,8 @@
     
     "tasks": [
         "yolo-object-counting/yolo-count-objects.yaml",
-        "ocr-screenshot.yaml",
-        "aigc-novel-ai.yaml",
-        "aigc-text-to-audio.yaml",
-        "text-to-audio/talking-genie-tts/talking-genie-tts.yaml"
+        "Screen-Ocr.yaml",
+        "TTS-Popup.yaml",
+        "TTS-Background.yaml"
     ]
 }

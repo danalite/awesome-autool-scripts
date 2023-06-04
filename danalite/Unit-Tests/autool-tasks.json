@@ -5,6 +5,7 @@
 
     "tasks": [
         
+        "Test-GPT-LLaMa.yaml",
         "Test-Input-Number.yaml",
 
         "Test-Chatbot.yaml",

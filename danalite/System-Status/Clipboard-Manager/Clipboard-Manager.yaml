@@ -1,0 +1,9 @@
+task: clipboard-manager
+
+actions:
+  # When clipboard is changed
+  - event.on(__CLIPBOARD_CHANGED__) => $r:
+    - cmd.print({{ $r }})
+  
+  # Keep task (and its event.on subtasks) alive
+  - event.wait( {{ {'waiting':'__CLIPBOARD_CHANGED__','limit':2} }})
