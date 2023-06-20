@@ -1,0 +1,25 @@
+task: test-interactive
+desc: get dynamically changing search results
+actions:
+
+  - |-
+    user.input({{
+      {
+        'title': 'GPT3.5',
+        'content':
+              {
+                'type': 'interactive',
+                'label': 'Ask a question',
+                'key': 'new_entries',
+                'params' : {
+                  'server': 'wss://192.168.0.30:5555',
+                  'history': ['What is the meaning of life?'],
+                }
+              },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret
+
+configs:
+  options: []
+  shortcut: true

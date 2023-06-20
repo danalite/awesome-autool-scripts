@@ -1,0 +1,59 @@
+task: track-screen-time
+
+actions:
+  # Tracking screen time on daily basis (can be changed to weekly/monthly)
+  - data.read( {{ 'NULL' }} ) => $prev_app
+  - data.read( {{ $env[YEAR] }}-{{ $env[MONTH] }}-{{ $env[DAY] }}.csv ) => $csv
+
+  - event.on(__WINDOW_CHANGED__) => $r:
+    - data.read({{ $r['owner'] }}) => $new_app
+    
+    - cmd.if({{ $prev_app != 'NULL'}}):
+      - data.read( {{ $env[DATE] }} ) => $date
+      - >- 
+        db.read( {{ {
+          'target': $csv,
+          'params': {
+            'keys':   [ 'time' ],
+            'filters': [ ('app', 'EQ', $prev_app) ],
+            'headers': ['app', 'time', 'date']
+          } 
+        } }}) => $time
+      
+      - cmd.if( {{ $time }} ):
+        - data.read( {{ $time[0] }} ) => $time
+      
+      - cmd.if({{ not $time }}):
+        # insert a new row
+        - data.read( {{ 0 }} ) => $time
+        -  >-
+          db.write( {{ {
+            'target': $csv,
+            'params': {
+              'values': [ $prev_app, 0, $date ],
+              'headers': ['app', 'time', 'date'], 
+            }
+          } }})
+    
+      # write back the new value
+      - data.read( {{ $env[NOW] }} ) => $now
+      - data.read( {{ $now - $prev + float($time) }} ) => $new
+      
+      - >-
+        db.write( {{ {
+          'target': $csv,
+          'params': {
+            'keys': [ 'time' ],
+            'values': [ $new ],
+            'headers': ['app', 'time', 'date'], 
+            'filters': [ ('app', 'EQ', $prev_app) ]
+          }
+        } }})
+
+    - data.read( {{ $new_app }}) => $prev_app
+    - data.read( {{ $env[NOW] }} ) => $prev
+    
+  
+  # Keep task (and its event.on subtasks) alive
+  - >- 
+    event.wait( {{ [ {'target':'__WINDOW_CHANGED__','limit':100} ] }})

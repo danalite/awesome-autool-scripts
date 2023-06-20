@@ -1,0 +1,48 @@
+task: track-keyboard
+desc: a boring app that tracks keystrokes you type. you can draw
+
+actions:
+  # Capture all keystrokes and record on daily basis
+  - cmd.print( {{$env[YEAR]}}-{{ $env[MONTH] }}-{{$env[DAY]}}.csv ) => $csv
+
+  - event.on(__KEY_PRESSED__) => $r:
+    - cmd.print({{ $r }})
+
+    - >-
+      db.read({{ {
+        'target': $csv,
+        'params': {
+          'headers': ['key', 'times'],
+          'keys': ['times'],
+          'filters': [ ('key', 'EQ', $r) ]
+        },
+      } }}) => $prev_times
+
+    - cmd.if({{ $prev_times }}):
+      - data.read({{ $prev_times[0] }}) => $prev_times
+      - >-
+        db.write({{ {
+          'target': $csv,
+          'params': {
+            'headers': ['key', 'times'],
+            'values':  [ $r, 1 + int($prev_times) ],
+            'filters': [ ('key', 'EQ', $r) ]
+          },
+        } }})
+
+    - cmd.if({{ not $prev_times }}):
+      - data.read({{ 0 }}) => $prev_times
+      - >-
+        db.write({{ {
+          'target': $csv,
+          'params': {
+            'headers': ['key', 'times'],
+            'values':  [ $r, 1 ]
+          },
+        } }})
+
+  # Keep task (and its event.on subtasks) alive
+  - >-
+    event.wait( {{ [
+      {'target':'__KEY_PRESSED__','limit':20000000 }
+    ] }})

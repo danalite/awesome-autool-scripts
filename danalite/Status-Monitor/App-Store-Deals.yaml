@@ -1,0 +1,14 @@
+task: apple-store-deals
+
+actions:
+  # An event waiting for network events (websocket)
+  - >- 
+    data.read( {{ {
+      'target': [ 'wss://192.168.0.23:4567' ],
+      'params' {
+        'auth': $env[AUTH_TOKEN],
+      }, 
+    } }} ) => $args
+
+  - event.on(__WEB_SERVICE__, {{ $args }}) => $s:
+      - s 

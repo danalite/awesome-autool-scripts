@@ -1,6 +1,0 @@
----
- task: generate-random-identity
- 
- actions:
-   # Example 1: use existing gmail account to generate github account
-   - data.eval({{  }}) => $emails

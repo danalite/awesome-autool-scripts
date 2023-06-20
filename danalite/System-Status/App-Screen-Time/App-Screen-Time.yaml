@@ -1,9 +1,0 @@
-task: track-screen-time
-
-actions:
-  # When clipboard is changed
-  - event.on(__WINDOW_CHANGED__) => $r:
-    - cmd.print({{ $r }})
-  
-  # Keep task (and its event.on subtasks) alive
-  - event.wait( {{ {'waiting':'__WINDOW_CHANGED__','limit':100} }})

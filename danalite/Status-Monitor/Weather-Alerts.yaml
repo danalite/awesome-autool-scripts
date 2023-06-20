@@ -1,0 +1,41 @@
+---
+ task: weather-alert
+
+ inputs:
+   city: Detroit
+
+ actions:
+   # Get weather info
+   - >- 
+    web.http(GET, 
+      https://wttr.in/{{$inputs[city]}}?format=%l:+%m+%c+%C+%t+%f, 
+      {{ {'type':'text'} }}) => $resp
+   - cmd.print({{ $resp }})
+
+   # Get current location
+   - web.http(GET, https://ipinfo.io/json) => $resp
+   - data.read({{ $resp['city'] }}) => $city
+   - >- 
+    web.http(GET, 
+      https://wttr.in/{{ $city }}?format=%l:+%m+%c+%C+%t+%f, 
+      {{ {'type':'text'} }}) => $resp
+
+   - >- 
+    user.input({{ {
+       'title': 'Weather Alert',
+       'content': {
+         'type': 'text',
+         'label': 'Weather Alert',
+         'content': $resp,
+       },
+       'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+     } }})
+
+  
+
+
+
+
+
+  
+

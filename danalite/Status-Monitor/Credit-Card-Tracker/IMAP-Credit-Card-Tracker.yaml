@@ -1,0 +1,47 @@
+task: imap-credit-card-tracker
+desc: watch email inbox for new messages
+
+actions:
+  # CSV to store monthly transactions
+  - data.read( amex-transactions-{{$env[YEAR]}}-{{$env[MONTH]}}.csv ) => $csv
+
+  # Get new emails from the inbox
+  # NB: the password is IMAP password, not your email password
+  #   - title: Amex transactions approved
+  #   - content: extract transaction amount, date, and vendor
+  #   - date: %m-%d-%y %H:%M:%S
+  - >- 
+    db.read({{ {
+      'target': 'user@imap.google.com',
+      'params': {
+        'password': ''
+        'keys':  [ 'content', 'date' ],
+        'filter': [ 
+            ('subject', 'INCLUDE', 'Amex'),  
+            ('date', 'GT', '2021-01-01 00:00:00')
+        ],
+      }
+    } }}) => $emails
+  
+  # Save into CSV
+  - cmd.for_each($emails) => $index, $v:
+    - data.read( {{ $v['content'] }} ) => $content
+
+    # parse vendor and amount from email content
+    - web.http(GET, {{ $content['url'] }}) => $html
+
+    # cache in the CSV database
+    - >-
+      db.write({{ {
+        'target': $csv,
+        'params': {
+          'headers': ['date', 'vendor', 'amount'],
+        }
+      } }})
+
+  - event.wait( {{ {'waiting':'__WINDOW_CHANGED__','limit':100} }})
+
+configs:
+  options: []
+  hotkey: ''
+  shortcut: false

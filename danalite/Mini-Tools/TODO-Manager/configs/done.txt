@@ -3,3 +3,5 @@ x 2023-04-21 build a hugo blog
 x 2023-05-18 pack up the stuff
 x 2023-05-22 test multiple inputs
 x 2023-05-28 Meeting at 2pm
+x 2023-06-17 finish chatbot app
+x 2023-06-18 book a cake

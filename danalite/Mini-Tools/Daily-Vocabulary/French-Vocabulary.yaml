@@ -1,0 +1,124 @@
+task: french-vocabulary
+
+actions:
+  # Add new cols to existing csv (if there is not)
+  # STATUS: 0 (totally new words) to 5 (I know it pretty well)
+  - >-
+    db.write({{ {
+      'target': 'common-fr-words.csv',
+      'params': {
+        'headers': ['Number','French','English'],
+        'new_cols': [ ('STATUS', '0'), ('DATE', 'NA') ]
+      }
+    } }})
+  
+  # Sample from the list for the words
+  # We pick words with STATUS < 3. you can change the filter to 
+  #    pick words with date > 1 week ago, etc.
+  - >- 
+    db.read({{ {
+      'target': 'common-fr-words.csv',
+      'params': {
+        'headers': ['Number','French','English', 'STATUS', 'DATE'],
+        'keys': ['French','English'],
+        'filters': [('STATUS', 'LT', '3')],
+        'sample_num': 15,
+        'map': {
+          'French': 'label',
+          'English': 'value'
+        }
+      }
+    } }}) => $words
+
+  - data.read({{ $words[:5] }}) => $words1
+  - data.read({{ $words[5:10] }}) => $words2
+  - data.read({{ $words[10:] }}) => $words3
+
+  # Generate a prompt and call GPT API to generate a sentence
+  - cmd.print( {{ ', '.join([ _['label'] for _ in $words1 ]) }} ) => $appendix
+  - cmd.print(écrire une phrase simple en utilisant les mots suivants:{{$appendix}}.) => $prompt1
+  - cmd.print( {{ $prompt1 }} )
+  - web.http(POST, http://127.0.0.1:5000/sentence_gen, {{ {'data':{'prompt':$prompt1} } }}) => $r1
+  - data.read({{ $r1['reply'] }}) => $sentence1
+  - data.read(https://dds.dui.ai/runtime/v1/synthesize?voiceId=ppangf_csn&text={{ $sentence1 }}&speed=1&volume=50&audioType=wav) => $audio1
+
+  - cmd.print( {{ ', '.join([ _['label'] for _ in $words2 ]) }} ) => $appendix
+  - cmd.print(écrire une phrase simple en utilisant les mots suivants:{{$appendix}}.) => $prompt2
+  - cmd.print( {{ $prompt2 }} )
+  - web.http(POST, http://127.0.0.1:5000/sentence_gen, {{ {'data':{'prompt':$prompt2} } }}) => $r2
+  - data.read({{ $r2['reply'] }}) => $sentence2
+  - data.read(https://dds.dui.ai/runtime/v1/synthesize?voiceId=ppangf_csn&text={{ $sentence2 }}&speed=1&volume=50&audioType=wav) => $audio2
+
+  - |-
+    user.input({{ {
+      'title': 'French Vocabulary', 
+      'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png',
+      'content': {
+        'type': 'tabs',
+        'content': [
+          {
+            'type': 'list',
+            'tab': 'List 1',
+            'content': [
+              {
+                'type': 'text',
+                'label': 'Words',
+                'content': $words1
+              },
+              {
+                'type': 'text',
+                'label': 'Example sentence',
+                'content': $sentence1
+              },
+              {
+                'type': 'audio',
+                'source': $audio1
+              },
+              {
+                'type': 'number',
+                'label': 'What\'s your confidence',
+                'key': 's1',
+                'default': 0,
+                'range': [0, 5]
+              }
+            ]
+          },
+
+          {
+            'type': 'list',
+            'tab': 'List 2',
+            'content': [
+              {
+                'type': 'text',
+                'label': 'Words',
+                'content': $words2
+              },
+              {
+                'type': 'text',
+                'label': 'Example sentence',
+                'content': $sentence2
+              },
+              {
+                'type': 'audio',
+                'source': $audio2
+              },
+              {
+                'type': 'number',
+                'label': 'What\'s your confidence',
+                'key': 's2',
+                'default': 0,
+                'range': [0, 5]
+              }
+            ]
+          }
+          
+        ]
+      }
+    } }}) => $resp
+
+  # # Save user input to database
+  # - db.write()
+
+configs:
+  options: []
+  shortcut: false

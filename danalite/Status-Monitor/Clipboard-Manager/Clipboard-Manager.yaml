@@ -1,0 +1,118 @@
+task: clipboard-manager
+
+actions:
+  # clean the prev image history (as the temp image should have been removed by OS)
+  - os.shell(rm -f images.csv)
+
+  # When clipboard is changed
+  - event.on(__CLIPBOARD_CHANGED__) => $r:
+    - cmd.print({{ $r }})
+
+    - data.read({{ $r['type'] }}) => $type
+    - data.read({{ $r['value'] }}) => $value
+    - data.read({{ $env[DATE] }}) => $date
+
+    # Write ne entries into local text files
+    - cmd.if( {{ $type == 'text' }} ):
+      - >-
+        db.write({{ {
+          'target': 'text.csv',
+          'params': {
+            'headers': ['label', 'timestamp'],
+            'values':  [ $value, $date ]
+          },
+        } }})
+    
+    - cmd.if( {{ $type == 'image' }} ):
+      - >-
+        db.write({{ {
+          'target': 'images.csv',
+          'params': {
+            'headers': ['src', 'timestamp'],
+            'values':  [ $value, $date ]
+          },
+        } }})
+
+  # Show clipboard history when Ctrl+P is pressed
+  - event.on(__KEY_PRESSED__, {{ {'keys':['Ctrl+P']} }}) => $k:
+    # read text and image history
+    - >-  
+      db.read({{ {
+        'target':'text.csv',
+        'params': {
+          'keys': ['label'],
+          'headers': ['label', 'timestamp'],
+        } 
+      } }}) => $texts
+
+    # read list and map keys (i.e., replace keys)
+    - >-
+      db.read({{ {
+        'target':'images.csv',
+        'params': {
+          'keys': ['src', 'timestamp'],
+          'map': {
+            'timestamp': 'label',
+            'src': 'value',
+            'headers': ['src', 'timestamp']
+          },
+          'auto_image_encode': True
+        } 
+      } }}) => $images
+    
+    # show list of clipboard history
+    - >-
+      user.input({{ {
+        'title': 'Clipboard Manager',
+        'content': {
+          'type': 'tabs',
+          'content': [
+            {
+              'tab': 'Text',
+              'type': 'select',
+              'key': 'discard_texts',
+              'label': 'Check items to discard',
+              'content': $texts
+            },
+            {
+              'tab': 'Images',
+              'type': 'select',
+              'label': 'Check items to discard',
+              'key': 'discard_images',
+              'imagePreview': True,
+              'content': $images
+            }]
+        },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      } }}) => $options
+
+    # discard selected items
+    - cmd.if( {{ $options['discard_texts'] }} ):
+        - cmd.for_each( {{ $options['discard_texts'] }} ) => $index, $text:
+          - >-
+            db.write({{ {
+              'target': 'text.csv',
+              'params': {
+                'headers': ['label', 'timestamp'],
+                'filters': [ ('label', 'EQ', $text) ]
+              },
+            } }})
+    
+    - cmd.if( {{ $options['discard_images'] }} ):
+        - cmd.for_each( {{ $options['discard_images'] }} ) => $index, $image:
+          - data.read({{ $image['label'] }}) => $label
+          - >-
+            db.write({{ {
+              'target': 'images.csv',
+              'params': {
+                'headers': ['src', 'timestamp'],
+                'filters': [ ('timestamp', 'EQ', $label) ]
+              },
+            } }})
+    
+  # Waiting for events to be triggered
+  - >-
+    event.wait( {{ [
+      {'target':'__CLIPBOARD_CHANGED__','limit':20 },
+      {'target':'__KEY_PRESSED__','limit':20 }
+    ] }})

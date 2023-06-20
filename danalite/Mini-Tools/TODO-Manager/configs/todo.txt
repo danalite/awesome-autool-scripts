@@ -1,1 +1,3 @@
-
+add docs
+New apps brainstorm
+test dynamic APIs

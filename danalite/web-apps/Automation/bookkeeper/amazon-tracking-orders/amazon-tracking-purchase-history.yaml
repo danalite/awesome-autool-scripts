@@ -45,6 +45,7 @@ actions:
 
               # Insert into database if it is a new record
               - db.read(db=$csv, table=amazon, key=$order_id) => $found
+              
               - cmd.if({{ not $found }}):
                   - db.write(db=$csv, table=amazon, key=$order_id, 
                       data={{'year':$Y, 'month':$M, 'day':$D, 'SKU':$SKU, 'price':$price}})

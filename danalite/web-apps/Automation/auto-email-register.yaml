@@ -1,0 +1,28 @@
+---
+ task: gmail-register
+ desc: generate gmail account using local 
+
+ actions:
+   - web.init()
+   - web.open(https://accounts.google.com/SignUp)
+
+   # with dummy (textVerify)
+   - cmd.call(utils/generate-identity, {{ {'phone':'*', 'carrier':'textVerified'} }}) => $p
+   
+   - web.find(//*[@id="firstName"]).type($p[firstName])
+   - web.find(//*[@id="lastName"]).type($p[lastName])
+   - web.find(//*[@id="username"]).type($p[firstName].$p[lastName])))
+   
+   - web.find(...).type($p[number])
+   - web.find(...).click()
+
+   # wait for verification code
+   - event.on() => $r:
+     - data.read( {{ $r['code'] }} ) => $code
+     - web.find(...)
+
+   - event.wait(__WEB_SERVICE__, {{ {'target':} }}) => $code
+   
+   - web.find(...).type($code)
+   - web.find(...).click()
+

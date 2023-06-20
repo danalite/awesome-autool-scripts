@@ -3,38 +3,54 @@ actions:
   - data.read( {{ $env[CLIPBOARD] }} ) => $c
   - data.read( {{ $c['value'] }} ) => $text
   - |-
+    db.read( {{ {
+       'target': 'history.csv',
+       'params': {
+         'keys':   [ 'content' ],
+         'headers': ['content' ]
+       } 
+     } }}) => $contents
+  - cmd.if({{ not $contents }}):
+      - data.read( {{ [ ] }} ) => $contents
+  - >-
+    data.read( {{ ['Type to translate'] + $contents + [ $text ] }} ) =>
+    $contents
+  - |-
     user.input({{
       {
         'title': 'DeepL 英文翻译 API',
-        'session': 'Wxta3NhO2RzYWRzYWZzYWQ=',
         'content':
               {
                 'type': 'interactive',
                 'key': 'history',
                 'params' : {
-                  'server': 'http://127.0.0.1:1188/translate',
-                  'history': ['开始翻译', $text],
+                  'server': 'http://127.0.0.1:5000/translate',
+                  'history': $contents,
                   'data': {
                     'QUERY_KEY': 'text',
                     'target_lang': 'ZH',
                     'source_lang': 'EN'
                   },
                   'method': 'POST',
-                  'response': ['data']
+                  'response': ['translated_text']
                 }
               },
         'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
       }
     }}) => $ret
-    
-  - |-
-    db.write({{
-      {
-        'target': 'history.txt',
-        'content': $ret['history'],
-        'mode': 'a'
-      }
-    }})
+  - data.read( {{ $ret['history'] }} ) => $history
+  - data.read( {{ [ $text ] + $history }} ) => $history
+  - cmd.for_each( {{ $history }} ) => $index, $content:
+      - |-
+        db.write({{
+          {
+            'target': 'history.csv',
+            'params': {
+              'keys':   [ 'content' ],
+              'values': [ $content ],
+            } 
+          }
+        }})
 configs:
   options: []
-  shortcut: false
+  shortcut: true

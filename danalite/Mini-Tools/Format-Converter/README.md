@@ -1,8 +1,6 @@
 ## Prerequisites
 - Docker: install Docker on your machine
 
-
-
 ```bash
 export TARGET=Untitled
 

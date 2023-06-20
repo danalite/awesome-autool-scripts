@@ -1,0 +1,18 @@
+{
+    "app": "Status-Monitor",
+    "author": "danalite",
+    "icon": "https://static.thenounproject.com/png/2998605-200.png",
+    
+    "tasks": [
+        "Amazon-Deals/Amazon-Deals.yaml",
+
+        "Keystroke-Tracking/Keystroke-Tracking.yaml",
+        "Switch-Keyboard.yaml",
+        
+        "App-Screen-Time/App-Screen-Time.yaml",
+        "Clipboard-Manager/Clipboard-Manager.yaml",
+
+        "Weather-Alerts.yaml",
+        "Credit-Card-Tracker/IMAP-Credit-Card-Tracker.yaml"
+    ]
+}
