@@ -5,9 +5,11 @@ actions:
    - web.open(https://www.google.com)
 
    # type something in the search box
-   - web.find( //*[@name='q'] ).type(Hello World)
+   - web.find( //*[@name='q'] ).type(Hello World).press(Enter)
 
    - cmd.sleep(1s)
-   - web.find( //*[@name='btnK'] ).click()
+
+   # send the enter key to submit the search
+   # - web.find( //*[@name='btnK'] ).click()
 
    - web.wait()

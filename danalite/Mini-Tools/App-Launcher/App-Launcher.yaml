@@ -6,12 +6,11 @@ actions:
         'title': 'Quick File Launcher',
         'content': {
           'type': 'dynamic',
-          'label': 'Search and click',
+          'label': 'Search desktop',
           'key': 'openFileName',
           "options": {
-            "search": "Files",
+            "search": "file://localhost/~/Desktop",
             "params": {
-              "location": "~/Desktop/",
               "extensions": ["png"],
               "size": [0, 1000]
             }
