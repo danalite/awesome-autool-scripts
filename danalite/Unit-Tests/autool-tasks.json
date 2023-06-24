@@ -7,16 +7,15 @@
         
         "Test-GPT-LLaMa.yaml",
         "Test-Input-Number.yaml",
+        "Test-Search-Local.yaml",
+        "Test-Search-Web.yaml",
 
         "Test-Chatbot.yaml",
-        "Test-Search-Web-Images.yaml",
-        "Test-Search-File-Summary.yaml",
-
         "Test-User-Input-Webview.yaml",
         "Test-User-Input-Search.yaml",
+
         "Test-User-Input-Select.yaml",
         "Test-User-Input-Segmentation.yaml",
-
         "Test-User-Notify.yaml",
 
         "Test-Window-Annotate.yaml",

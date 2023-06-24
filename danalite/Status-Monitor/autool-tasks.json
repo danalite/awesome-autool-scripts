@@ -1,8 +1,6 @@
 {
     "app": "Status-Monitor",
     "author": "danalite",
-    "icon": "https://static.thenounproject.com/png/2998605-200.png",
-    
     "tasks": [
         "Amazon-Deals/Amazon-Deals.yaml",
 
@@ -14,5 +12,7 @@
 
         "Weather-Alerts.yaml",
         "Credit-Card-Tracker/IMAP-Credit-Card-Tracker.yaml"
-    ]
+    ],
+    
+    "icon": "https://static.thenounproject.com/png/2998605-200.png"
 }

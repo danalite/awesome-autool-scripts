@@ -17,8 +17,9 @@ actions:
     } }}) => $select
 
   - data.read({{ $select['apps'] }}) => $target
-  - cmd.for_each({{ $target }}) => $index, $item:
-      - os.shell(osascript -e 'tell application "{{ $item }}" to quit')
+  - cmd.if({{ $target }}):
+    - cmd.for_each({{ $target }}) => $index, $item:
+        - os.shell(osascript -e 'tell application "{{ $item }}" to quit')
 
 configs:
   options: []

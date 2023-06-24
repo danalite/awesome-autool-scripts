@@ -1,0 +1,37 @@
+task: test-search-web
+desc: get dynamically changing search results
+
+# with postSearch
+# The returned JSON from HTTP server should be parsed into
+#    a LIST of objects with particular keys
+actions:
+  - >-
+    user.input({{
+      {
+        'title': 'Search Web',
+        'content': {
+          'type': 'dynamic',
+          'label': 'Type and enter to search',
+          'key': 'target',
+          "options": {
+            "search": "https://yande.re/post.json?",
+            "params": {
+               '__QUERY_KEY__': 'tags',
+               '__QUERY_TYPE__': 'GET',
+               '__RESPONSE_MAP__': {
+                  'mapping': [ 
+                    ('tags', 'label'), 
+                    ('md5', 'value'), 
+                    ('preview_url', 'src'),
+                    ('file_url', 'link')
+                  ],
+                  'base': { 'width': 65 }
+               },
+               'limit': 5,
+            },
+            'instantShow': False
+          }
+        },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret

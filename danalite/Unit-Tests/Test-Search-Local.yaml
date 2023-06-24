@@ -1,0 +1,27 @@
+task: test-dynamic-update
+desc: get dynamically changing search results
+
+actions:
+  # No postSearch, so the selected item will be returned as a list
+  - >-
+    user.input({{
+      {
+        'title': 'Test User Input',
+        'content': 
+            {
+              'type': 'dynamic',
+              'label': 'Search my desktop',
+              'key': 'target',
+              "options": {
+                "search": "file://localhost/~/Desktop",
+                "params": {
+                  "extensions": ["png"],
+                  "size": [0, 1000]
+                },
+                'instantShow': True
+              }
+            },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret
+  # quant, sparse attention, auto-regressive. pt2.0

@@ -27,7 +27,7 @@ actions:
                   'server': 'http://127.0.0.1:5000/translate',
                   'history': $contents,
                   'data': {
-                    'QUERY_KEY': 'text',
+                    '__QUERY_KEY__': 'text',
                     'target_lang': 'ZH',
                     'source_lang': 'EN'
                   },
