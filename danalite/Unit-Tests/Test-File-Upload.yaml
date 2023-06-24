@@ -17,17 +17,6 @@ actions:
               'placeholder': 'Enter your name'
             },
             {
-              'type': 'dynamic',
-              'label': 'Select files from workspace',
-              'key': 'test3',
-              'search': 'Files',
-              'params' : {
-                'location': '~/Desktop',
-                'extensions': ['png'],
-                'size': [0, 1000]
-              }
-            },
-            {
               'type': 'upload',
               'key': 'test4',
               'label': 'Upload files'

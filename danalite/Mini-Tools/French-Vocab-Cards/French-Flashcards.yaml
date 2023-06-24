@@ -61,8 +61,9 @@ actions:
             'tab': 'List 1',
             'content': [
               {
-                'type': 'text',
+                'type': 'list',
                 'label': 'Words',
+                'cardMode': True,
                 'content': $words1
               },
               {
@@ -89,8 +90,9 @@ actions:
             'tab': 'List 2',
             'content': [
               {
-                'type': 'text',
+                'type': 'list',
                 'label': 'Words',
+                'cardMode': True,
                 'content': $words2
               },
               {

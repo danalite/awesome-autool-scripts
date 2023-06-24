@@ -1,0 +1,37 @@
+task: test-card-modes
+desc: show list as cards
+actions:
+  - |-
+    user.input({{
+      {
+        'title': 'Show list as cards',
+        'content': {
+          'type': 'list',
+          'cardMode': True,
+          'maxHeight': '550px',
+          'content': [ 
+            {
+              "label": "la pomme",
+              "value": "la pomme",
+              "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSYU_fMk62izj1rSePKOhpiBzcJKVXw-EAFeiikwcCvblZNbvub3EK64yyUMgjLBYZhrY&usqp=CAU",
+              "description": "(= fruit) apple
+              tomber dans les pommes"
+            },
+            {
+              "label": "être furieux", 
+              "value": "être furieux", 
+              "src": "https://media.istockphoto.com/id/824883238/photo/dog-running.jpg?s=612x612&w=0&k=20&c=oRw8ZvtMZ5Y4l8szrHvRbQbAgx0HSGkDA7sXZp4SP2s=", "description": "mad [adjective] (sometimes with at or with) very angry"
+            },
+            {
+              "label": "être furieux", 
+              "value": "être furieux", 
+              "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn-lDu8gCU4YrWUBhESRi2E4nRbC584mmCWQ&usqp=CAU", "description": "mad [adjective] (sometimes with at or with) very angry"
+            }
+          ]
+        },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret
+configs:
+  options: []
+  shortcut: true

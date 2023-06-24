@@ -7,12 +7,14 @@
         
         "Test-GPT-LLaMa.yaml",
         "Test-Input-Number.yaml",
-        "Test-Search-Local.yaml",
-        "Test-Search-Web.yaml",
 
         "Test-Chatbot.yaml",
-        "Test-User-Input-Webview.yaml",
-        "Test-User-Input-Search.yaml",
+        "Test-Search-Web.yaml",
+        "Test-Search-Local.yaml",
+        
+        "Test-Webview.yaml",
+        "Test-File-Upload.yaml",
+        "Test-Cards-Mode.yaml",
 
         "Test-User-Input-Select.yaml",
         "Test-User-Input-Segmentation.yaml",

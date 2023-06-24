@@ -1,0 +1,35 @@
+task: test-card-modes
+desc: show list as cards
+
+actions:
+  - >-
+    user.input({{
+      {
+        'title': 'Show list as cards',
+        'content': {
+          'type': 'list',
+          'cardMode': True,
+          'maxHeight': '800px',
+          'content': [ 
+            {
+              "label": "Firewatch Diffusion Model",
+              "value": "xx",
+              "src": "https://imagecache.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cdfccd83-1f02-4580-4bbc-f11d665d8800/width=450/frozenl.jpeg",
+              "description": "Landscapes, Anime"
+            },
+            {
+              "label": "Cetus-Mix", 
+              "value": "Test2", 
+              "src": "https://imagecache.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e8af6535-6ff6-4404-c6f9-63a28029bb00/width=450/00877-1649434158-(neko%20girl),hold%20a%20cat,%20%20cute,%20full%20of%20cats,%20(%20full%20body),%20,Cat%20litter%20boxes,%20cat%20paintings%20on%20the%20wall,%20(detailed%20face),.jpeg", "description": "Anime"
+            },
+            {
+              "label": "Hipoly 3D Model LoRA", 
+              "value": "tes5", 
+              "src": "https://imagecache.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3e28cc7f-dd15-4dbf-0981-b840dc19fc00/width=450/01972-20230410094800-1041864763-models_02_25D_AlstroemeriaMix-fp16.jpeg", 
+              "description": "Realistic"
+            }
+          ]
+        },
+        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+      }
+    }}) => $ret

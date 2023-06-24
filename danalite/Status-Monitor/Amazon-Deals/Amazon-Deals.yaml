@@ -6,7 +6,7 @@ actions:
       'content': {
         'type': 'list',
         'label': 'Amazon deals (OFF>50%)',
-        'imagePreview': True,
+        'cardMode': True,
         'content': [
           {
             'label': 'NVIDIA RTX 4080 GPU, 16GB GDDR6X',

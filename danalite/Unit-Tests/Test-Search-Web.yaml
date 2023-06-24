@@ -20,16 +20,19 @@ actions:
                '__QUERY_TYPE__': 'GET',
                '__RESPONSE_MAP__': {
                   'mapping': [ 
-                    ('tags', 'label'), 
+                    ('tags', 'description'), 
+                    ('creator_id', 'label'), 
                     ('md5', 'value'), 
                     ('preview_url', 'src'),
                     ('file_url', 'link')
                   ],
-                  'base': { 'width': 65 }
+                  'base': { 'width': 180 }
                },
                'limit': 5,
             },
-            'instantShow': False
+            'instantShow': False,
+            'cardMode': True,
+            'maxHeight': '600px',
           }
         },
         'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
