@@ -71,13 +71,14 @@ actions:
               'tab': 'Text',
               'type': 'select',
               'key': 'discard_texts',
-              'label': 'Check items to discard',
+              'closableMode': True,
+              'label': 'Text history',
               'content': $texts
             },
             {
               'tab': 'Images',
               'type': 'select',
-              'label': 'Check items to discard',
+              'label': 'Image history',
               'key': 'discard_images',
               'imagePreview': True,
               'content': $images

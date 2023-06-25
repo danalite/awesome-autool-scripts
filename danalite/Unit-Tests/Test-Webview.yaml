@@ -8,12 +8,6 @@ actions:
           'type': 'list',
           'content': [
             {
-              'type': 'text',
-              'key': 'name',
-              'label': 'Test1, click me to copy',
-              'content': 'Hello this is a test'
-            },
-            {
               'type': 'audio',
               'source': 'https://dds.dui.ai/runtime/v1/synthesize?voiceId=ppangf_csn&text=怎么办我的心好痛&speed=1&volume=50&audioType=wav',
               'label': 'Test1, click me to copy'
@@ -25,19 +19,6 @@ actions:
             },
           ],
         },
-        'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
-      }
-    }})
-
-  - >-
-    user.input({{
-      {
-        'title': 'Test Notification',
-        'content': {
-              'type': 'webview',
-              'source': 'https://chat.openai.com/',
-              'label': 'Copy'
-            },
         'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
       }
     }})

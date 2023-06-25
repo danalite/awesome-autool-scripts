@@ -13,10 +13,11 @@ actions:
             "params": {
               "extensions": ["png"],
               "size": [0, 1000]
-            }
+            },
+            'instantShow': True,
+            'instantQuit': True,
+            'max': 1
           },
-          'instantQuit': True,
-          'max': 1
         },
         'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
       }
