@@ -4,7 +4,7 @@
     "icon": "https://github.com/danalites/autool/blob/main/imgs/logo.png?raw=true",
 
     "tasks": [
-        
+        "Test-Hello-World.yaml",
         "Test-GPT-LLaMa.yaml",
         "Test-Input-Number.yaml",
 
