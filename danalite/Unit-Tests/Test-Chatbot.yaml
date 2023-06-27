@@ -19,4 +19,4 @@ actions:
     }}) => $ret
 configs:
   options: []
-  shortcut: true
+  shortcut: false

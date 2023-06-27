@@ -1,0 +1,16 @@
+task: test-hello-world
+actions:
+  - |-
+    user.input({{ {
+      'title': 'Welcome to AuTool',
+      'content': {
+            'type': 'text',
+            'label': 'Hello World',
+            'content': 'Greetings from AuTool!'
+          },
+      'icon': 'https://raw.githubusercontent.com/danalites/autoo/main/imgs/logo.png'
+    } }})
+  
+configs:
+  options: []
+  shortcut: false
